@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Data = {
   email: string;
@@ -10,19 +11,22 @@ const emptyData: Data = {
   password: "",
 };
 
-const App = () => {
+const Login = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState<Data>(emptyData);
 
   const fetchData = async () => {
     try {
       const url = import.meta.env.VITE_API_BASE_URL;
-      const response = await fetch(`${url}/api/register`, {
+      const response = await fetch(`${url}/api/login`, {
         method: "POST",
         body: JSON.stringify({ email: data.email, password: data.password }),
         headers: {
           "Content-Type": "application/json",
         },
       });
+      const result = await response.json();
+      localStorage.setItem("token", result.token);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -33,7 +37,9 @@ const App = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    fetchData()
+    fetchData();
+    navigate("/notes");  
+    setData(emptyData);
   }
 
   return (
@@ -67,4 +73,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Login;
