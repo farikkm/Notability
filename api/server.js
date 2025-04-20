@@ -19,7 +19,15 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
+
+const noteSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+});
+
 const User = mongoose.model("User", userSchema);
+const Note = mongoose.model("Note", noteSchema);
 
 // Register
 app.post("/api/register", async (req, res) => {
@@ -78,6 +86,19 @@ app.get("/api/protected", verifyToken, (req, res) => {
     res.status(200).json({ message: "Access granted", userId: decoded.id });
   } catch (err) {
     res.status(403).json({ error: "Invalid or expired token" });
+  }
+});
+
+// Add a new note
+app.post("notes/add", verifyToken, async (req, res) => {
+  const { title, content } = req.body;
+  const userId = req.userId;
+
+  try {
+    const newNote = await Note.create({ title, content, userId });
+    res.status(201).json({ message: "Note created successfully", noteId: newNote._id });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 

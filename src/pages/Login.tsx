@@ -1,46 +1,41 @@
-import { useState } from "react";
+import { useUserStore } from "entities/User";
+import { useAuth } from "features/Login";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-type Data = {
-  email: string;
-  password: string;
-};
-
-const emptyData: Data = {
-  email: "",
-  password: "",
-};
-
 const Login = () => {
-  const navigate = useNavigate();
-  const [data, setData] = useState<Data>(emptyData);
+  const email = useUserStore((state) => state.email);
+  const password = useUserStore((state) => state.password);
+  const setEmail = useUserStore((state) => state.setEmail);
+  const setPassword = useUserStore((state) => state.setPassword);
+  const reset = useUserStore((state) => state.reset);
+  const isAuthenticated = useUserStore((state) => state.isAuthenticated);
+  const { login } = useAuth();
 
-  const fetchData = async () => {
-    try {
-      const url = import.meta.env.VITE_API_BASE_URL;
-      const response = await fetch(`${url}/api/login`, {
-        method: "POST",
-        body: JSON.stringify({ email: data.email, password: data.password }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const result = await response.json();
-      localStorage.setItem("token", result.token);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/notes");
+    }
+  }, [isAuthenticated, navigate]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Submitting form with data:", { email, password });
+    if (!email || !password) {
+      console.error("Email and password are required");
+      return;
+    }
+    const isLoggedIn = await login(email, password);
+    if (!isLoggedIn) {
+      console.error("Login failed");
+      return;
+    } else {
+      navigate("/notes");
+      reset();
     }
   };
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    fetchData();
-    navigate("/notes");  
-    setData(emptyData);
-  }
 
   return (
     <div>
@@ -51,8 +46,8 @@ const Login = () => {
             type="email"
             id="email"
             name="email"
-            onChange={(e) => setData({ ...data, email: e.target.value })}
-            value={data.email}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             required
           />
         </div>
@@ -62,8 +57,8 @@ const Login = () => {
             type="password"
             id="password"
             name="password"
-            onChange={(e) => setData({ ...data, password: e.target.value })}
-            value={data.password}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
             required
           />
         </div>
