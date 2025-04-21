@@ -1,19 +1,31 @@
 import { useUserStore } from "entities/User";
-import { useAuth } from "features/Login";
+import { useAuth } from "features/Auth";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  // States
   const email = useUserStore((state) => state.email);
   const password = useUserStore((state) => state.password);
+  const errorMessage = useUserStore((state) => state.errorMessage);
+  const emailErrorMessage = useUserStore((state) => state.emailErrorMessage);
+  const passwordErrorMessage = useUserStore(
+    (state) => state.passwordErrorMessage
+  );
+  const isAuthenticated = useUserStore((state) => state.isAuthenticated);
+
+  // Actions
   const setEmail = useUserStore((state) => state.setEmail);
   const setPassword = useUserStore((state) => state.setPassword);
   const reset = useUserStore((state) => state.reset);
-  const isAuthenticated = useUserStore((state) => state.isAuthenticated);
-  const { login } = useAuth();
+  const validateEmail = useUserStore((state) => state.validateEmail);
+  const validatePassword = useUserStore((state) => state.validatePassword);
 
+  // Hooks
+  const { login } = useAuth();
   const navigate = useNavigate();
 
+  // Effects
   useEffect(() => {
     if (isAuthenticated) {
       console.log("User is already authenticated, redirecting to notes page.");
@@ -23,11 +35,14 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const isEmailValid = validateEmail(email);
+    const isPasswordValid = validatePassword(password);
+
+    if (!isEmailValid || !isPasswordValid) return;
+
     console.log("Submitting form with data:", { email, password });
-    if (!email || !password) {
-      console.error("Email and password are required");
-      return;
-    }
+
     const isLoggedIn = await login(email, password);
     if (!isLoggedIn) {
       console.error("Login failed");
@@ -52,6 +67,9 @@ const Login = () => {
             value={email}
             required
           />
+          {emailErrorMessage && (
+            <p style={{ color: "red" }}>{emailErrorMessage}</p>
+          )}
         </div>
         <div>
           <label htmlFor="password">Password:</label>
@@ -63,7 +81,11 @@ const Login = () => {
             value={password}
             required
           />
+          {passwordErrorMessage && (
+            <p style={{ color: "red" }}>{passwordErrorMessage}</p>
+          )}
         </div>
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         <button type="submit">Login</button>
         <Link to={"/register"}>Register</Link>
       </form>

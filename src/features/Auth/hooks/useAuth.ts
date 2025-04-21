@@ -2,6 +2,8 @@ import { useUserStore } from "entities/User";
 
 export const useAuth = () => {
   const setToken = useUserStore((state) => state.setToken);
+  const setErrorMessage = useUserStore((state) => state.setErrorMessage);
+  const clearErrorMessage = useUserStore((state) => state.clearErrorMessage);
 
   const login = async (email: string, password: string) => {
     try {
@@ -20,9 +22,12 @@ export const useAuth = () => {
       }
 
       setToken(result.token);
+      clearErrorMessage();
       return true;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    } catch (error: unknown) {
+      let message = "Login failed";
+      if (error instanceof Error) message = error.message;
+      setErrorMessage(message);
       return false;
     }
   };
@@ -42,15 +47,19 @@ export const useAuth = () => {
       if (!response.ok) {
         throw new Error(result.message || "Registration failed");
       }
+
+      clearErrorMessage();
       return true;
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    } catch (error: unknown) {
+      let message = "Registration failed";
+      if (error instanceof Error) message = error.message;
+      setErrorMessage(message);
       return false;
     }
-  }
+  };
 
   return {
     login,
-    register
+    register,
   };
 };
