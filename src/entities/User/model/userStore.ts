@@ -49,7 +49,7 @@ export const useUserStore = create<UserState>((set) => ({
     set({
       token,
       userId,
-      isAuthenticated: !!token, // true if token exists
+      isAuthenticated: !!token && token !== "undefined",
     })
   }
 }));

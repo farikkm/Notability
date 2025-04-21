@@ -1,7 +1,7 @@
 import { useUserStore } from "entities/User";
 import { useAuth } from "features/Login";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const email = useUserStore((state) => state.email);
@@ -16,6 +16,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
+      console.log("User is already authenticated, redirecting to notes page.");
       navigate("/notes");
     }
   }, [isAuthenticated, navigate]);
@@ -39,6 +40,7 @@ const Login = () => {
 
   return (
     <div>
+      <h1>Login</h1>
       <form onSubmit={handleSubmit} action="#" method="POST">
         <div>
           <label htmlFor="email">Email:</label>
@@ -62,7 +64,8 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">Login</button>
+        <Link to={"/register"}>Register</Link>
       </form>
     </div>
   );
