@@ -1,7 +1,11 @@
 import { useUserStore } from "entities/User";
 import { useAuth } from "features/Auth";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Form, Input, Button, Typography } from "antd";
+import { AuthLayout } from "shared/ui/layout";
+
+const { Text } = Typography;
 
 const Register = () => {
   // States
@@ -11,8 +15,8 @@ const Register = () => {
   const emailErrorMessage = useUserStore((state) => state.emailErrorMessage);
   const passwordErrorMessage = useUserStore(
     (state) => state.passwordErrorMessage
-  );  
-  
+  );
+
   // Actions
   const setEmail = useUserStore((state) => state.setEmail);
   const setPassword = useUserStore((state) => state.setPassword);
@@ -21,18 +25,21 @@ const Register = () => {
   const validatePassword = useUserStore((state) => state.validatePassword);
   const setErrorMessage = useUserStore((state) => state.setErrorMessage);
   const clearErrorMessage = useUserStore((state) => state.clearErrorMessage);
-  
+
   // Hooks
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const { register } = useAuth();
 
   // Effects
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     clearErrorMessage();
-    console.log("Submitting form with data:", { email, password, confirmPassword });
-    
+    console.log("Submitting form with data:", {
+      email,
+      password,
+      confirmPassword,
+    });
+
     const isEmailValid = validateEmail(email);
     const isPasswordValid = validatePassword(password);
 
@@ -52,34 +59,70 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit} action="#" method="POST">
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" onChange={(e) => setEmail(e.target.value)} value={email} required />
-          {emailErrorMessage && <p style={{ color: "red" }}>{emailErrorMessage}</p>}
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)} value={password} required />
-          {passwordErrorMessage && <p style={{ color: "red" }}>{passwordErrorMessage}</p>}
-        </div>
-        <div>
-          <label htmlFor="confirm-password">Confirm Password:</label>
-          <input
-            type="password"
-            id="confirm-password"
-            name="confirm-password"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            value={confirmPassword}
-            required
+    <AuthLayout title="Register" description="Create a new account">
+      <Form
+        layout="vertical"
+        onFinish={handleSubmit}
+        initialValues={{
+          email,
+          password,
+          confirmPassword,
+        }}
+      >
+        <Form.Item
+          label={<span className="font-bold">Email</span>}
+          name="email"
+          rules={[
+            { required: true, message: "Please enter your email" },
+            { type: "email", message: "Invalid email format" },
+          ]}
+          style={{ marginBottom: 10 }}
+        >
+          <Input value={email} onChange={(e) => setEmail(e.target.value)} />
+        </Form.Item>
+        {emailErrorMessage && <Text type="danger">{emailErrorMessage}</Text>}
+
+        <Form.Item
+          label={<span className="font-bold">Password</span>}
+          name="password"
+          rules={[{ required: true, message: "Please enter your password" }]}
+          style={{ marginBottom: 10 }}
+        >
+          <Input.Password
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-        <button type="submit">Register</button>
-      </form>
-    </div>
+        </Form.Item>
+        {passwordErrorMessage && (
+          <Text type="danger">{passwordErrorMessage}</Text>
+        )}
+
+        <Form.Item
+          label={<span className="font-bold">Confirm Password</span>}
+          name="confirmPassword"
+          rules={[{ required: true, message: "Please confirm your password" }]}
+          style={{ marginBottom: 10 }}
+        >
+          <Input.Password
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        </Form.Item>
+
+        {errorMessage && <Text type="danger">{errorMessage}</Text>}
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit" block>
+            Register
+          </Button>
+        </Form.Item>
+
+        <Form.Item className="text-center">
+          <span>Already have an account? </span>
+          <Link to="/login">Login</Link>
+        </Form.Item>
+      </Form>
+    </AuthLayout>
   );
 };
 
