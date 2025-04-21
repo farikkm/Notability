@@ -20,6 +20,9 @@ const Login = () => {
   const reset = useUserStore((state) => state.reset);
   const validateEmail = useUserStore((state) => state.validateEmail);
   const validatePassword = useUserStore((state) => state.validatePassword);
+  const clearErrorMessage = useUserStore(
+    (state) => state.clearErrorMessage
+  );
 
   // Hooks
   const { login } = useAuth();
@@ -35,6 +38,7 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    clearErrorMessage();
 
     const isEmailValid = validateEmail(email);
     const isPasswordValid = validatePassword(password);
@@ -44,12 +48,10 @@ const Login = () => {
     console.log("Submitting form with data:", { email, password });
 
     const isLoggedIn = await login(email, password);
-    if (!isLoggedIn) {
-      console.error("Login failed");
-      return;
-    } else {
+    if (isLoggedIn) {
       navigate("/notes");
       reset();
+      clearErrorMessage();
     }
   };
 

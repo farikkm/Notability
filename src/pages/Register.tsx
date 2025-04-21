@@ -30,6 +30,7 @@ const Register = () => {
   // Effects
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    clearErrorMessage();
     console.log("Submitting form with data:", { email, password, confirmPassword });
     
     const isEmailValid = validateEmail(email);
