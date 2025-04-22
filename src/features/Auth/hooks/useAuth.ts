@@ -2,8 +2,11 @@ import { useUserStore } from "entities/User";
 
 export const useAuth = () => {
   const setToken = useUserStore((state) => state.setToken);
+  const setUserId = useUserStore((state) => state.setUserId);
   const setErrorMessage = useUserStore((state) => state.setErrorMessage);
   const clearErrorMessage = useUserStore((state) => state.clearErrorMessage);
+
+  // Hooks
 
   const login = async (email: string, password: string) => {
     try {
@@ -58,8 +61,38 @@ export const useAuth = () => {
     }
   };
 
+  const checkToken = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/protected`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      const data = await response.json();      
+      setUserId(data.userId);
+
+      return true;
+    } catch (err: any) {
+      setErrorMessage("Token is invalid or expired");
+      return false;
+    }
+  };
+
   return {
     login,
     register,
+    checkToken
   };
 };

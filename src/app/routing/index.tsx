@@ -1,17 +1,12 @@
 // router.tsx
-import { lazy, Suspense } from "react";
+import RequireAuth from "features/Auth/lib/navigation/RequireAuth";
+import { lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { Spin } from "antd";
+import WithSuspense from "shared/ui/lib/react/WithSuspense";
 
 const Notes = lazy(() => import("pages/Notes"));
 const Login = lazy(() => import("pages/Login"));
 const Register = lazy(() => import("pages/Register"));
-
-const withSuspense = (element: React.ReactNode) => (
-  <Suspense fallback={<div className="w-screen h-screen flex justify-center items-center"><Spin size="large" /></div>}>
-    {element}
-  </Suspense>
-);
 
 export function createAppRouter() {
   return createBrowserRouter([
@@ -21,15 +16,19 @@ export function createAppRouter() {
     },
     {
       path: "/login",
-      element: withSuspense(<Login />),
+      element: WithSuspense(<Login />),
     },
     {
       path: "/register",
-      element: withSuspense(<Register />),
+      element: WithSuspense(<Register />),
     },
     {
       path: "/notes",
-      element: withSuspense(<Notes />),
+      element: WithSuspense(
+        <RequireAuth>
+          <Notes />
+        </RequireAuth>
+      ),
     },
   ]);
 }

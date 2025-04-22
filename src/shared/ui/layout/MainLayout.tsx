@@ -1,6 +1,8 @@
 const MainLayout = () => {
   return (
-    <div>MainLayout</div>
+    <div className="flex flex-col h-screen w-screen bg-yellow-100 p-4">
+      
+    </div>
   )
 }
 

@@ -1,42 +1,9 @@
 import { useUserStore } from "entities/User";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Notes = () => {
   const navigate = useNavigate();
   const logout = useUserStore((state) => state.logout);
-  const setUserId = useUserStore((state) => state.setUserId);
-
-  useEffect(() => {
-    const fetchProtectedData = async () => {
-      const token = localStorage.getItem("token");
-
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/api/protected`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          navigate("/login", { replace: true });
-          throw new Error("Unauthorized");
-        }
-
-        const data = await response.json();
-        setUserId(data.userId);
-      } catch (err) {
-        console.error("Ошибка:", err);
-      }
-    };
-
-    fetchProtectedData();
-  }, []);
 
   const handleLogout = () => {
     logout();
