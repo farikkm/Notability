@@ -1,7 +1,7 @@
 import { LoginForm } from "widgets/auth";
 import { AuthLayout } from "shared/ui/layout";
 import { useNavigate } from "react-router-dom";
-import { useAuthorizedUser } from "features/Auth/hooks/useAuthorizedUser";
+import { useAuthorizedUser } from "features/Auth/hooks";
 
 const Login = () => {
   // Hooks

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAuth } from "features/Auth/hooks";
 import { useUserStore } from "entities/User/model";
 import { Link, useNavigate } from "react-router-dom";
@@ -5,7 +6,7 @@ import { Form, Input, Button, Typography } from "antd";
 
 const { Text } = Typography;
 
-const LoginForm = () => {
+const RegisterForm = () => {
   // States
   const email = useUserStore((state) => state.email);
   const password = useUserStore((state) => state.password);
@@ -21,26 +22,36 @@ const LoginForm = () => {
   const resetFields = useUserStore((state) => state.resetFields);
   const validateEmail = useUserStore((state) => state.validateEmail);
   const validatePassword = useUserStore((state) => state.validatePassword);
+  const setErrorMessage = useUserStore((state) => state.setErrorMessage);
   const clearErrorMessage = useUserStore((state) => state.clearErrorMessage);
 
   // Hooks
-  const { login } = useAuth();
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+  const { register } = useAuth();
 
   // Handlers
   const handleSubmit = async () => {
     clearErrorMessage();
+    console.log("Submitting form with data:", {
+      email,
+      password,
+      confirmPassword,
+    });
 
     const isEmailValid = validateEmail(email);
     const isPasswordValid = validatePassword(password);
 
     if (!isEmailValid || !isPasswordValid) return;
 
-    console.log("Submitting form with data:", { email, password });
+    if (password !== confirmPassword) {
+      setErrorMessage("Passwords do not match");
+      return;
+    }
 
-    const success = await login(email, password);
-    if (success) {
-      navigate("/notes");
+    const isRegistered = await register(email, password);
+    if (isRegistered) {
+      navigate("/login");
       resetFields();
       clearErrorMessage();
     }
@@ -50,56 +61,66 @@ const LoginForm = () => {
     <Form
       layout="vertical"
       onFinish={handleSubmit}
-      initialValues={{ email, password }}
+      initialValues={{
+        email,
+        password,
+        confirmPassword,
+      }}
     >
       <Form.Item
         label={<span className="font-bold">Email</span>}
         name="email"
-        style={{ marginBottom: 10 }}
         rules={[
           { required: true, message: "Please enter your email" },
-          { type: "email", message: "Please enter a valid email" },
+          { type: "email", message: "Invalid email format" },
         ]}
+        style={{ marginBottom: 10 }}
       >
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <Input value={email} onChange={(e) => setEmail(e.target.value)} />
       </Form.Item>
-
       {emailErrorMessage && <Text type="danger">{emailErrorMessage}</Text>}
 
       <Form.Item
         label={<span className="font-bold">Password</span>}
         name="password"
-        style={{ marginBottom: 10 }}
         rules={[{ required: true, message: "Please enter your password" }]}
+        style={{ marginBottom: 10 }}
       >
         <Input.Password
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </Form.Item>
-
       {passwordErrorMessage && (
         <Text type="danger">{passwordErrorMessage}</Text>
       )}
+
+      <Form.Item
+        label={<span className="font-bold">Confirm Password</span>}
+        name="confirmPassword"
+        rules={[{ required: true, message: "Please confirm your password" }]}
+        style={{ marginBottom: 10 }}
+      >
+        <Input.Password
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+      </Form.Item>
 
       {errorMessage && <Text type="danger">{errorMessage}</Text>}
 
       <Form.Item>
         <Button type="primary" htmlType="submit" block>
-          Login
+          Register
         </Button>
       </Form.Item>
 
       <Form.Item className="text-center">
-        <span>Don't have an account? </span>
-        <Link to="/register">Register</Link>
+        <span>Already have an account? </span>
+        <Link to="/login">Login</Link>
       </Form.Item>
     </Form>
   );
 };
 
-export { LoginForm };
+export { RegisterForm };

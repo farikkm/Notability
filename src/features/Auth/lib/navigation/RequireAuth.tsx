@@ -1,6 +1,5 @@
 import { JSX, useEffect } from "react";
-
-import { useAuth } from "features/Auth";
+import { useAuth } from "features/Auth/hooks";
 import { useNavigate } from "react-router-dom";
 
 export const RequireAuth = ({ children }: { children: JSX.Element }) => {
