@@ -1,7 +1,6 @@
 import { Form, Input, Button, Typography } from "antd";
 import { useUserStore } from "entities/User";
 import { useAuth } from "features/Auth";
-import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthLayout } from "shared/ui/layout";
 
@@ -30,14 +29,6 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  // Effects
-  useEffect(() => {
-    if (isAuthenticated) {
-      console.log("User is already authenticated, redirecting to notes page.");
-      navigate("/notes");
-    }
-  }, [isAuthenticated, navigate]);
-
   // Handlers
   const handleSubmit = async () => {
     clearErrorMessage();
@@ -58,60 +49,62 @@ const Login = () => {
   };
 
   return (
-    <AuthLayout title="Login" description="Login to your account">
-      <Form
-        layout="vertical"
-        onFinish={handleSubmit}
-        initialValues={{ email, password }}
-      >
-        <Form.Item
-          label={<span className="font-bold">Email</span>}
-          name="email"
-          style={{ marginBottom: 10 }}
-          rules={[
-            { required: true, message: "Please enter your email" },
-            { type: "email", message: "Please enter a valid email" },
-          ]}
+    <>
+      <AuthLayout email={isAuthenticated ? email : ""} title="Login" description="Login to your account">
+        <Form
+          layout="vertical"
+          onFinish={handleSubmit}
+          initialValues={{ email, password }}
         >
-          <Input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Item>
+          <Form.Item
+            label={<span className="font-bold">Email</span>}
+            name="email"
+            style={{ marginBottom: 10 }}
+            rules={[
+              { required: true, message: "Please enter your email" },
+              { type: "email", message: "Please enter a valid email" },
+            ]}
+          >
+            <Input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Form.Item>
 
-        {emailErrorMessage && <Text type="danger">{emailErrorMessage}</Text>}
+          {emailErrorMessage && <Text type="danger">{emailErrorMessage}</Text>}
 
-        <Form.Item
-          label={<span className="font-bold">Password</span>}
-          name="password"
-          style={{ marginBottom: 10 }}
-          rules={[{ required: true, message: "Please enter your password" }]}
-        >
-          <Input.Password
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Item>
+          <Form.Item
+            label={<span className="font-bold">Password</span>}
+            name="password"
+            style={{ marginBottom: 10 }}
+            rules={[{ required: true, message: "Please enter your password" }]}
+          >
+            <Input.Password
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Form.Item>
 
-        {passwordErrorMessage && (
-          <Text type="danger">{passwordErrorMessage}</Text>
-        )}
+          {passwordErrorMessage && (
+            <Text type="danger">{passwordErrorMessage}</Text>
+          )}
 
-        {errorMessage && <Text type="danger">{errorMessage}</Text>}
+          {errorMessage && <Text type="danger">{errorMessage}</Text>}
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit" block>
-            Login
-          </Button>
-        </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" block>
+              Login
+            </Button>
+          </Form.Item>
 
-        <Form.Item className="text-center">
-          <span>Don't have account? </span>
-          <Link to="/register">Register</Link>
-        </Form.Item>
-      </Form>
-    </AuthLayout>
+          <Form.Item className="text-center">
+            <span>Don't have an account? </span>
+            <Link to="/register">Register</Link>
+          </Form.Item>
+        </Form>
+      </AuthLayout>
+    </>
   );
 };
 

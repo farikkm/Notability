@@ -10,7 +10,12 @@ export const RequireAuth = ({ children }: { children: JSX.Element }) => {
   useEffect(() => {
     const verifyToken = async () => {
       const hasToken = await checkToken();
-      if (!hasToken) navigate("/login");
+      if (!hasToken) {
+        navigate("/login", { replace: true });
+      } else {
+        navigate("/notes", { replace: true });
+      };
+
     };
 
     verifyToken();
