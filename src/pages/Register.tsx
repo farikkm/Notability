@@ -31,7 +31,7 @@ const Register = () => {
   const navigate = useNavigate();
   const { register } = useAuth();
 
-  // Effects
+  // Handlers
   const handleSubmit = async () => {
     clearErrorMessage();
     console.log("Submitting form with data:", {

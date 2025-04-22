@@ -38,6 +38,7 @@ const Login = () => {
     }
   }, [isAuthenticated, navigate]);
 
+  // Handlers
   const handleSubmit = async () => {
     clearErrorMessage();
 
