@@ -1,4 +1,3 @@
-// router.tsx
 import { lazy } from "react";
 import { RequireAuth } from "features/Auth/lib/navigation";
 import WithSuspense from "shared/ui/lib/react/WithSuspense";
