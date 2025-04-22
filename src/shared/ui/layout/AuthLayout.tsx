@@ -1,8 +1,6 @@
 import { motion } from "motion/react";
-import AuthorizedUserCard from "shared/ui/AuthorizedUserCard";
 
 export const AuthLayout = ({
-  email,
   title,
   description,
   children,
@@ -27,14 +25,6 @@ export const AuthLayout = ({
           </div>
         </motion.div>
       </div>
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-xl w-full"
-      >
-        <AuthorizedUserCard email={email} />
-      </motion.div>
     </div>
   );
 };

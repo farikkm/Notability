@@ -15,7 +15,6 @@ const Login = () => {
   const passwordErrorMessage = useUserStore(
     (state) => state.passwordErrorMessage
   );
-  const isAuthenticated = useUserStore((state) => state.isAuthenticated);
 
   // Actions
   const setEmail = useUserStore((state) => state.setEmail);
@@ -50,7 +49,7 @@ const Login = () => {
 
   return (
     <>
-      <AuthLayout email={isAuthenticated ? email : ""} title="Login" description="Login to your account">
+      <AuthLayout title="Login" description="Login to your account">
         <Form
           layout="vertical"
           onFinish={handleSubmit}
