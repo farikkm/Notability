@@ -20,7 +20,7 @@ const Register = () => {
   // Actions
   const setEmail = useUserStore((state) => state.setEmail);
   const setPassword = useUserStore((state) => state.setPassword);
-  const reset = useUserStore((state) => state.reset);
+  const resetFields = useUserStore((state) => state.resetFields);
   const validateEmail = useUserStore((state) => state.validateEmail);
   const validatePassword = useUserStore((state) => state.validatePassword);
   const setErrorMessage = useUserStore((state) => state.setErrorMessage);
@@ -53,7 +53,7 @@ const Register = () => {
     const isRegistered = await register(email, password);
     if (isRegistered) {
       navigate("/login");
-      reset();
+      resetFields();
       clearErrorMessage();
     }
   };

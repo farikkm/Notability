@@ -13,7 +13,7 @@ interface UserState {
 
   setEmail: (email: string) => void;
   setPassword: (password: string) => void;
-  reset: () => void;
+  resetFields: () => void;
 
   validateEmail: (email: string) => boolean;
   validatePassword: (password: string) => boolean;
@@ -42,7 +42,7 @@ export const useUserStore = create<UserState>((set) => ({
   // Actions
   setEmail: (email) => set({ email }),
   setPassword: (password) => set({ password }),
-  reset: () => set({ email: "", password: "" }),
+  resetFields: () => set({ email: "", password: "" }),
 
   setErrorMessage: (message) => set({ errorMessage: message }),
   clearErrorMessage: () => set({ errorMessage: null }),

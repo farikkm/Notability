@@ -21,7 +21,7 @@ const Login = () => {
   // Actions
   const setEmail = useUserStore((state) => state.setEmail);
   const setPassword = useUserStore((state) => state.setPassword);
-  const reset = useUserStore((state) => state.reset);
+  const resetFields = useUserStore((state) => state.resetFields);
   const validateEmail = useUserStore((state) => state.validateEmail);
   const validatePassword = useUserStore((state) => state.validatePassword);
   const clearErrorMessage = useUserStore((state) => state.clearErrorMessage);
@@ -48,10 +48,10 @@ const Login = () => {
 
     console.log("Submitting form with data:", { email, password });
 
-    const isLoggedIn = await login(email, password);
-    if (isLoggedIn) {
+    const success = await login(email, password);
+    if (success) {
       navigate("/notes");
-      reset();
+      resetFields();
       clearErrorMessage();
     }
   };
