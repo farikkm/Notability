@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { WithSuspense } from "shared/ui/lib/react";
+import { WithSuspense } from "shared/lib/react";
 import { RequireAuth } from "features/Auth/lib/navigation";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
