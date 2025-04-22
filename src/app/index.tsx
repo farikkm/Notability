@@ -1,7 +1,7 @@
-import { createAppRouter } from "app/routing";
-import { useUserStore } from "entities/User";
 import { useEffect } from "react";
+import { createAppRouter } from "app/routing";
 import { RouterProvider } from "react-router-dom";
+import { useUserStore } from "entities/User/model";
 
 const router = createAppRouter();
 
