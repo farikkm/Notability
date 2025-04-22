@@ -1,8 +1,8 @@
 // router.tsx
-import RequireAuth from "features/Auth/lib/navigation/RequireAuth";
 import { lazy } from "react";
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { RequireAuth } from "features/Auth/lib/navigation";
 import WithSuspense from "shared/ui/lib/react/WithSuspense";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 const Notes = lazy(() => import("pages/Notes"));
 const Login = lazy(() => import("pages/Login"));

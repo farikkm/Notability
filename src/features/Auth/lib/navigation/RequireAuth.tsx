@@ -3,7 +3,7 @@ import { JSX, useEffect } from "react";
 import { useAuth } from "features/Auth";
 import { useNavigate } from "react-router-dom";
 
-const RequireAuth = ({ children }: { children: JSX.Element }) => {
+export const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const navigate = useNavigate();
   const { checkToken } = useAuth();
 
@@ -18,5 +18,3 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
 
   return children;
 };
-
-export default RequireAuth;

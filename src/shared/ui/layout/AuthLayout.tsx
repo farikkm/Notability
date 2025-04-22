@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 
-const AuthLayout = ({
+export const AuthLayout = ({
   title,
   description,
   children,
@@ -27,5 +27,3 @@ const AuthLayout = ({
     </div>
   );
 };
-
-export default AuthLayout;
