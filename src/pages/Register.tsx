@@ -1,9 +1,9 @@
-import { useUserStore } from "entities/User";
 import { useAuth } from "features/Auth";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Input, Button, Typography } from "antd";
 import { AuthLayout } from "shared/ui/layout";
+import { useUserStore } from "entities/User/model";
 
 const { Text } = Typography;
 

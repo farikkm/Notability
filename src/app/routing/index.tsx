@@ -1,6 +1,6 @@
 import { lazy } from "react";
+import { WithSuspense } from "shared/ui/lib/react";
 import { RequireAuth } from "features/Auth/lib/navigation";
-import WithSuspense from "shared/ui/lib/react/WithSuspense";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
 const Notes = lazy(() => import("pages/Notes"));

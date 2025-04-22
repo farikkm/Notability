@@ -29,6 +29,19 @@ const noteSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 const Note = mongoose.model("Note", noteSchema);
 
+// Middleware to verify JWT
+const verifyToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (!token) return res.status(401).json({ error: "Token missing" });
+
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ error: "Invalid or expired token" });
+    req.userId = decoded.id;
+    next();
+  });
+};
+
 // Register
 app.post("/api/register", async (req, res) => {
   const { email, password } = req.body;
@@ -62,18 +75,16 @@ app.post("/api/login", async (req, res) => {
   res.status(200).json({ token });
 });
 
-// Middleware to verify JWT
-const verifyToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (!token) return res.status(401).json({ error: "Token missing" });
-
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    if (err) return res.status(403).json({ error: "Invalid or expired token" });
-    req.userId = decoded.id;
-    next();
-  });
-};
+// Profile
+app.get("/api/user", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ error: "User not found" });
+    res.status(200).json({ email: user.email });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+})
 
 // Protected route example
 app.get("/api/protected", verifyToken, (req, res) => {
@@ -90,7 +101,7 @@ app.get("/api/protected", verifyToken, (req, res) => {
 });
 
 // Add a new note
-app.post("notes/add", verifyToken, async (req, res) => {
+app.post("/api/notes/add", verifyToken, async (req, res) => {
   const { title, content } = req.body;
   const userId = req.userId;
 

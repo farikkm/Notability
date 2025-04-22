@@ -1,7 +1,7 @@
 import { Spin } from "antd";
 import { Suspense } from "react";
 
-const WithSuspense = (element: React.ReactNode) => (
+export const WithSuspense = (element: React.ReactNode) => (
   <Suspense
     fallback={
       <div className="w-screen h-screen flex justify-center items-center">
@@ -12,5 +12,3 @@ const WithSuspense = (element: React.ReactNode) => (
     {element}
   </Suspense>
 );
-
-export default WithSuspense;

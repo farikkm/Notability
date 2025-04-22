@@ -1,4 +1,4 @@
-import { useUserStore } from "entities/User";
+import { useUserStore } from "entities/User/model";
 
 export const useAuth = () => {
   const setToken = useUserStore((state) => state.setToken);
