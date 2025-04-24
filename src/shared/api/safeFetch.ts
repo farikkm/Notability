@@ -6,11 +6,11 @@ export const safeFetch = async (url: string, options?: RequestInit) => {
   }
 
   const contentType = response.headers.get("Content-Type");
-  
+
   if (contentType && contentType.includes("application/json")) {
-    return response.json();
+    return await response.json();
   } else if (contentType && contentType.includes("text/plain")) {
-    return response.text();
+    return await response.text();
   } else {
     throw new Error(`Unsupported content type: ${contentType}`);
   }

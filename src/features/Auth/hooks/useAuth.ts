@@ -10,18 +10,13 @@ export const useAuth = () => {
   const login = async (email: string, password: string) => {
     try {
       const url = import.meta.env.VITE_API_BASE_URL;
-      const response = await safeFetch(`${url}/api/login`, {
+      const result = await safeFetch(`${url}/api/login`, {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: {
           "Content-Type": "application/json",
         },
       });
-
-      const result = await response.json();
-      if (!response.ok) {
-        throw new Error(result.message || "Login failed");
-      }
 
       setToken(result.token);
       clearErrorMessage();
@@ -37,18 +32,13 @@ export const useAuth = () => {
   const register = async (email: string, password: string) => {
     try {
       const url = import.meta.env.VITE_API_BASE_URL;
-      const response = await safeFetch(`${url}/api/register`, {
+      await safeFetch(`${url}/api/register`, {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: {
           "Content-Type": "application/json",
         },
       });
-
-      const result = await response.json();
-      if (!response.ok) {
-        throw new Error(result.message || "Registration failed");
-      }
 
       clearErrorMessage();
       return true;
@@ -64,7 +54,7 @@ export const useAuth = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await safeFetch(
+      const result = await safeFetch(
         `${import.meta.env.VITE_API_BASE_URL}/api/protected`,
         {
           method: "GET",
@@ -73,15 +63,9 @@ export const useAuth = () => {
             Authorization: `Bearer ${token}`,
           },
         }
-      );
-
-      if (!response.ok) {
-        throw new Error();
-      }
-
-      const data = await response.json();      
-      setUserId(data.userId);
-
+      );  
+      
+      setUserId(result.userId);
       return true;
     } catch (err: any) {
       setErrorMessage("Token is invalid or expired");
