@@ -123,7 +123,7 @@ app.get("/api/notes", verifyToken, async (req, res) => {
   const userId = req.userId;
   try {
     const notes = await Note.find({ userId }).sort({ createdAt: -1 });
-    res.status(200).json(notes);
+    res.status(200).json({ notes: notes });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
