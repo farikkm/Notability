@@ -3,6 +3,7 @@ import { safeFetch } from "shared/api";
 import { Form, Input, Button } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useUserStore } from "entities/User/model";
+import { useNotesStore } from "entities/Notes/model";
 
 const NoteForm = () => {
   // States
@@ -11,6 +12,7 @@ const NoteForm = () => {
   const token = useUserStore((state) => state.token);
 
   // Actions
+  const addNote = useNotesStore((state) => state.addNote);
   const setTitleState = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
@@ -21,8 +23,11 @@ const NoteForm = () => {
   // Handlers
   const handleSubmit = async () => {
     const newNote = {
+      _id: "new-note",
       title: title,
       content: content,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
 
     try {
@@ -34,7 +39,7 @@ const NoteForm = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(result);
+      addNote({ ...newNote, _id: result.noteId });
     } catch (error) {
       console.error("Error:", error);
     }
