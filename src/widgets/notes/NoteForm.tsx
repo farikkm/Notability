@@ -2,8 +2,8 @@ import { useNoteForm } from "shared/hooks";
 import { Form, Input, Button } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useNotesStore } from "entities/Notes/model";
-import { createNotePayload } from "features/Notes/add-note/lib";
-import { addNoteRequest } from "features/Notes/add-note/model";
+import { createNotePayload } from "features/Notes/crud/add-note/lib";
+import { addNoteRequest } from "features/Notes/crud/add-note/model";
 
 export const NoteForm = () => {
   const { title, content, handleTitleChange, handleContentChange, resetForm } =
