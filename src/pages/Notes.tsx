@@ -2,6 +2,7 @@ import { useUserStore } from "entities/User/model";
 import { useAuthorizedUser } from "features/Auth/hooks/useAuthorizedUser";
 import { ArrowLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { safeFetch } from "shared/api";
 
 const Notes = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Notes = () => {
     console.log("Content:", content);
 
     try {
-      const response = await fetch(`http://localhost:3001/api/notes/add`, {
+      const response = await safeFetch(`http://localhost:3001/api/notes/add`, {
         method: "POST",
         body: JSON.stringify({ title, content }),
         headers: {

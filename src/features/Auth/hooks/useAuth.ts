@@ -1,4 +1,5 @@
 import { useUserStore } from "entities/User/model";
+import { safeFetch } from "shared/api";
 
 export const useAuth = () => {
   const setToken = useUserStore((state) => state.setToken);
@@ -11,7 +12,7 @@ export const useAuth = () => {
   const login = async (email: string, password: string) => {
     try {
       const url = import.meta.env.VITE_API_BASE_URL;
-      const response = await fetch(`${url}/api/login`, {
+      const response = await safeFetch(`${url}/api/login`, {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: {
@@ -38,7 +39,7 @@ export const useAuth = () => {
   const register = async (email: string, password: string) => {
     try {
       const url = import.meta.env.VITE_API_BASE_URL;
-      const response = await fetch(`${url}/api/register`, {
+      const response = await safeFetch(`${url}/api/register`, {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: {
@@ -65,7 +66,7 @@ export const useAuth = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await fetch(
+      const response = await safeFetch(
         `${import.meta.env.VITE_API_BASE_URL}/api/protected`,
         {
           method: "GET",
