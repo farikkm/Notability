@@ -1,13 +1,11 @@
-import { useUserStore } from "entities/User/model";
 import { safeFetch } from "shared/api";
+import { useUserStore } from "entities/User/model";
 
 export const useAuth = () => {
   const setToken = useUserStore((state) => state.setToken);
   const setUserId = useUserStore((state) => state.setUserId);
   const setErrorMessage = useUserStore((state) => state.setErrorMessage);
   const clearErrorMessage = useUserStore((state) => state.clearErrorMessage);
-
-  // Hooks
 
   const login = async (email: string, password: string) => {
     try {
