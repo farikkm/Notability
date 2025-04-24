@@ -3,6 +3,9 @@ import { NoteType } from "shared/types";
 
 interface NotesState {
   notes: NoteType[];
+  setNotes: (notes: NoteType[]) => void;
+
+  // Actions
   addNote: (note: NoteType) => void;
   updateNote: (id: string, updatedNote: Partial<NoteType>) => void;
   deleteNote: (id: string) => void;
@@ -11,19 +14,22 @@ interface NotesState {
 
 export const useNotesStore = create<NotesState>()((set) => ({
   notes: [],
+  setNotes: (notes) => set({ notes }),
+
+  // Actions
   addNote: (note) => {
     set((state) => ({ notes: [...state.notes, note] }));
   },
   updateNote: (id, updatedNote) => {
     set((state) => ({
       notes: state.notes.map((note) =>
-        note.id === id ? { ...note, ...updatedNote } : note
+        note._id === id ? { ...note, ...updatedNote } : note
       ),
     }));
   },
   deleteNote: (id) => {
     set((state) => ({
-      notes: state.notes.filter((note) => note.id !== id),
+      notes: state.notes.filter((note) => note._id !== id),
     }));
   },
   clearNotes: () => set({ notes: [] }),
