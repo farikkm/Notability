@@ -1,45 +1,24 @@
-import { useState } from "react";
-import { safeFetch } from "shared/api";
+import { useNoteForm } from "shared/hooks";
 import { Form, Input, Button } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useUserStore } from "entities/User/model";
 import { useNotesStore } from "entities/Notes/model";
+import { createNotePayload } from "features/Notes/add-note/lib";
+import { addNoteRequest } from "features/Notes/add-note/model";
 
-const NoteForm = () => {
-  // States
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const token = useUserStore((state) => state.token);
+export const NoteForm = () => {
+  const { title, content, handleTitleChange, handleContentChange, resetForm } =
+    useNoteForm();
 
   // Actions
   const addNote = useNotesStore((state) => state.addNote);
-  const setTitleState = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-  const setContentState = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-  };
 
-  // Handlers
   const handleSubmit = async () => {
-    const newNote = {
-      _id: "new-note",
-      title: title,
-      content: content,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
+    const newNote = createNotePayload(title, content);
 
     try {
-      const result = await safeFetch(`http://localhost:3001/api/notes/add`, {
-        method: "POST",
-        body: JSON.stringify(newNote),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      addNote({ ...newNote, _id: result.noteId });
+      const noteID = await addNoteRequest(newNote);
+      addNote({ ...newNote, _id: noteID });
+      resetForm();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -53,7 +32,7 @@ const NoteForm = () => {
           id="note-title"
           name="note-title"
           value={title}
-          onChange={setTitleState}
+          onChange={handleTitleChange}
           required
         />
       </Form.Item>
@@ -62,7 +41,7 @@ const NoteForm = () => {
           id="note-content"
           name="note-content"
           value={content}
-          onChange={setContentState}
+          onChange={handleContentChange}
           required
         ></TextArea>
       </Form.Item>
@@ -74,5 +53,3 @@ const NoteForm = () => {
     </Form>
   );
 };
-
-export default NoteForm;

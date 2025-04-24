@@ -3,7 +3,11 @@ import { NoteType } from "shared/types";
 
 interface NotesState {
   notes: NoteType[];
+  error: string | null;
+
+  // Mutations
   setNotes: (notes: NoteType[]) => void;
+  setError: (error: string | null) => void;
 
   // Actions
   addNote: (note: NoteType) => void;
@@ -14,6 +18,9 @@ interface NotesState {
 
 export const useNotesStore = create<NotesState>()((set) => ({
   notes: [],
+  error: null,
+
+  setError: (error) => set({ error }),
   setNotes: (notes) => set({ notes }),
 
   // Actions
