@@ -2,11 +2,10 @@ import { useUserStore } from "entities/User/model";
 import { useAuthorizedUser } from "features/Auth/hooks/useAuthorizedUser";
 import { ArrowLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { safeFetch } from "shared/api";
+import NoteForm from "widgets/notes/NoteForm";
 
 const Notes = () => {
   const navigate = useNavigate();
-  const token = useUserStore((state) => state.token);
   const logout = useUserStore((state) => state.logout);
 
   const handleLogout = () => {
@@ -16,31 +15,8 @@ const Notes = () => {
 
   const userInfo = useAuthorizedUser();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const title = formData.get("note-title") as string;
-    const content = formData.get("note-content") as string;
-    console.log("Title:", title);
-    console.log("Content:", content);
-
-    try {
-      const result = await safeFetch(`http://localhost:3001/api/notes/add`, {
-        method: "POST",
-        body: JSON.stringify({ title, content }),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(result);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
   return (
-    <div>
+    <div className="p-5">
       <Link to={"/login"} className="icon-text-wrapper">
         <ArrowLeft />
         <span>Login</span>
@@ -53,19 +29,7 @@ const Notes = () => {
         This is a protected route. You should see this if you are logged in.
       </p>
 
-      <form onSubmit={handleSubmit} method="POST" id="add-note">
-        <div>
-          <label htmlFor="note-title">Title:</label>
-          <input type="text" id="note-title" name="note-title" required />
-        </div>
-        <div>
-          <label htmlFor="note-content">Content:</label>
-          <textarea id="note-content" name="note-content" required></textarea>
-        </div>
-        <div>
-          <button type="submit">Add Note</button>
-        </div>
-      </form>
+      <NoteForm />
 
       <button onClick={handleLogout}>Log Out</button>
     </div>

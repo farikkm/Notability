@@ -1,18 +1,25 @@
-import React from "react";
+import { useState } from "react";
 import { safeFetch } from "shared/api";
+import { Form, Input, Button } from "antd";
+import TextArea from "antd/es/input/TextArea";
 import { useUserStore } from "entities/User/model";
 
 const NoteForm = () => {
+  // States
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const token = useUserStore((state) => state.token);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const title = formData.get("note-title") as string;
-    const content = formData.get("note-content") as string;
-    console.log("Title:", title);
-    console.log("Content:", content);
+  // Actions
+  const setTitleState = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+  const setContentState = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
+  };
 
+  // Handlers
+  const handleSubmit = async () => {
     try {
       const result = await safeFetch(`http://localhost:3001/api/notes/add`, {
         method: "POST",
@@ -29,19 +36,37 @@ const NoteForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} method="POST" id="add-note">
-      <div>
-        <label htmlFor="note-title">Title:</label>
-        <input type="text" id="note-title" name="note-title" required />
-      </div>
-      <div>
-        <label htmlFor="note-content">Content:</label>
-        <textarea id="note-content" name="note-content" required></textarea>
-      </div>
-      <div>
-        <button type="submit">Add Note</button>
-      </div>
-    </form>
+    <>
+      <Form
+        method="POST"
+        layout="vertical"
+        onFinish={handleSubmit}
+        id="add-note"
+      >
+        <Form.Item label="Title" name="note-title" required>
+          <Input
+            type="text"
+            id="note-title"
+            name="note-title"
+            value={title}
+            onChange={setTitleState}
+            required
+          />
+        </Form.Item>
+        <Form.Item label="Content" name="note-content" required>
+          <TextArea
+            id="note-content"
+            name="note-content"
+            value={content}
+            onChange={setContentState}
+            required
+          ></TextArea>
+        </Form.Item>
+        <Form.Item>
+          <Button htmlType="submit" block>Add Note</Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 };
 
