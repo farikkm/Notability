@@ -9,7 +9,7 @@ const NoteForm = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const token = useUserStore((state) => state.token);
-
+  
   // Actions
   const setTitleState = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -20,10 +20,15 @@ const NoteForm = () => {
 
   // Handlers
   const handleSubmit = async () => {
+    const newNote = {
+      title: title,
+      content: content
+    };
+
     try {
       const result = await safeFetch(`http://localhost:3001/api/notes/add`, {
         method: "POST",
-        body: JSON.stringify({ title, content }),
+        body: JSON.stringify(newNote),
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
