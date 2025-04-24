@@ -25,6 +25,8 @@ const noteSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 });
 
 const User = mongoose.model("User", userSchema);
@@ -35,14 +37,14 @@ const connectDb = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
     });
 
     console.log("MongoDB connected ✅");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
   }
-}
+};
 
 // Middleware to verify JWT
 const verifyToken = (req, res, next) => {
@@ -80,13 +82,14 @@ app.post("/api/register", async (req, res) => {
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  if (!user) return res.status(401).json({ error: 'User not found' });
+  if (!user) return res.status(401).json({ error: "User not found" });
   const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) return res.status(401).json({ error: 'Invalid password' });
+  if (!isPasswordValid)
+    return res.status(401).json({ error: "Invalid password" });
   const token = jwt.sign({ id: user._id }, JWT_SECRET, {
     expiresIn: "1h",
   });
-  if (!token) return res.status(500).json({ error: 'Token generation failed' });
+  if (!token) return res.status(500).json({ error: "Token generation failed" });
   res.status(200).json({ token });
 });
 
@@ -99,14 +102,14 @@ app.get("/api/user", verifyToken, async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
-})
+});
 
 // Protected route example
 app.get("/api/protected", verifyToken, (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ error: "Token missing" });
 
-  const token = authHeader.split(" ")[1]; 
+  const token = authHeader.split(" ")[1];
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     res.status(200).json({ message: "Access granted", userId: decoded.id });
@@ -121,8 +124,16 @@ app.post("/api/notes/add", verifyToken, async (req, res) => {
   const userId = req.userId;
 
   try {
-    const newNote = await Note.create({ title, content, userId });
-    res.status(201).json({ message: "Note created successfully", noteId: newNote._id });
+    const newNote = await Note.create({
+      title,
+      content,
+      userId,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    res
+      .status(201)
+      .json({ message: "Note created successfully", noteId: newNote._id });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
@@ -134,7 +145,7 @@ const startServer = async () => {
   app.listen(PORT, () => {
     console.log(`Server is running on port http://localhost:${PORT}`);
   });
-}
+};
 
 startServer().catch((error) => {
   console.error("Error starting server:", error);
