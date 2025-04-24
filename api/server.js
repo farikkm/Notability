@@ -118,6 +118,17 @@ app.get("/api/protected", verifyToken, (req, res) => {
   }
 });
 
+// Get all notes for a user
+app.get("/api/notes", verifyToken, async (req, res) => {
+  const userId = req.userId;
+  try {
+    const notes = await Note.find({ userId }).sort({ createdAt: -1 });
+    res.status(200).json(notes);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // Add a new note
 app.post("/api/notes/add", verifyToken, async (req, res) => {
   const { title, content } = req.body;
