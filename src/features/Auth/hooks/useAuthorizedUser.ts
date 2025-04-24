@@ -1,8 +1,10 @@
+import { useUserStore } from "entities/User/model";
 import { useEffect, useState } from "react";
 import { getUserInfo } from "shared/api";
 import { UserInfo } from "shared/types";
 
 export const useAuthorizedUser = () => {
+  const logout = useUserStore((state) => state.logout);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   useEffect(() => {
@@ -10,8 +12,9 @@ export const useAuthorizedUser = () => {
       try {
         const userInfo = await getUserInfo();
         setUserInfo(userInfo);
-      } catch (_) {
-        // Возможно, токен просрочен — ничего не делаем
+      } catch (error) {
+        logout();
+        console.error(error);
       }
     };
     fetchUserInfo();
