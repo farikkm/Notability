@@ -5,8 +5,9 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-dotenv.config();
 const app = express();
+
+dotenv.config();
 app.use(cors());
 app.use(express.json());
 
@@ -28,6 +29,20 @@ const noteSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 const Note = mongoose.model("Note", noteSchema);
+
+// Connect to MongoDB
+const connectDb = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+
+    console.log("MongoDB connected ✅");
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error);
+  }
+}
 
 // Middleware to verify JWT
 const verifyToken = (req, res, next) => {
@@ -113,6 +128,15 @@ app.post("/api/notes/add", verifyToken, async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port http://localhost:${PORT}`);
+// Start the server
+const startServer = async () => {
+  await connectDb();
+  app.listen(PORT, () => {
+    console.log(`Server is running on port http://localhost:${PORT}`);
+  });
+}
+
+startServer().catch((error) => {
+  console.error("Error starting server:", error);
+  process.exit(1);
 });
