@@ -9,7 +9,7 @@ const NoteForm = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const token = useUserStore((state) => state.token);
-  
+
   // Actions
   const setTitleState = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -22,7 +22,7 @@ const NoteForm = () => {
   const handleSubmit = async () => {
     const newNote = {
       title: title,
-      content: content
+      content: content,
     };
 
     try {
@@ -41,37 +41,32 @@ const NoteForm = () => {
   };
 
   return (
-    <>
-      <Form
-        method="POST"
-        layout="vertical"
-        onFinish={handleSubmit}
-        id="add-note"
-      >
-        <Form.Item label="Title" name="note-title" required>
-          <Input
-            type="text"
-            id="note-title"
-            name="note-title"
-            value={title}
-            onChange={setTitleState}
-            required
-          />
-        </Form.Item>
-        <Form.Item label="Content" name="note-content" required>
-          <TextArea
-            id="note-content"
-            name="note-content"
-            value={content}
-            onChange={setContentState}
-            required
-          ></TextArea>
-        </Form.Item>
-        <Form.Item>
-          <Button htmlType="submit" block>Add Note</Button>
-        </Form.Item>
-      </Form>
-    </>
+    <Form method="POST" layout="vertical" onFinish={handleSubmit} id="add-note">
+      <Form.Item label="Title" name="note-title" required>
+        <Input
+          type="text"
+          id="note-title"
+          name="note-title"
+          value={title}
+          onChange={setTitleState}
+          required
+        />
+      </Form.Item>
+      <Form.Item label="Content" name="note-content" required>
+        <TextArea
+          id="note-content"
+          name="note-content"
+          value={content}
+          onChange={setContentState}
+          required
+        ></TextArea>
+      </Form.Item>
+      <Form.Item>
+        <Button htmlType="submit" block>
+          Add Note
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
 
