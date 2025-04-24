@@ -25,7 +25,7 @@ const Notes = () => {
     console.log("Content:", content);
 
     try {
-      const response = await safeFetch(`http://localhost:3001/api/notes/add`, {
+      const result = await safeFetch(`http://localhost:3001/api/notes/add`, {
         method: "POST",
         body: JSON.stringify({ title, content }),
         headers: {
@@ -33,7 +33,6 @@ const Notes = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const result = await response.json();
       console.log(result);
     } catch (error) {
       console.error("Error:", error);

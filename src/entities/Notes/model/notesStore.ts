@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { NoteType } from "shared/types";
-import { persist } from "zustand/middleware";
 
 interface NotesState {
   notes: NoteType[];
@@ -10,31 +9,22 @@ interface NotesState {
   clearNotes: () => void;
 }
 
-export const useNotesStore = create<NotesState>()(
-  persist(
-    (set) => ({
-      notes: [],
-      addNote: (note) => {
-        set((state) => ({ notes: [...state.notes, note] }));
-      },
-      updateNote: (id, updatedNote) => {
-        set((state) => ({
-          notes: state.notes.map((note) =>
-            note.id === id
-              ? { ...note, ...updatedNote }
-              : note
-          ),
-        }));
-      },
-      deleteNote: (id) => {
-        set((state) => ({
-          notes: state.notes.filter((note) => note.id !== id),
-        }));
-      },
-      clearNotes: () => set({ notes: [] }),
-    }),
-    {
-      name: "notes-storage",
-    }
-  )
-);
+export const useNotesStore = create<NotesState>()((set) => ({
+  notes: [],
+  addNote: (note) => {
+    set((state) => ({ notes: [...state.notes, note] }));
+  },
+  updateNote: (id, updatedNote) => {
+    set((state) => ({
+      notes: state.notes.map((note) =>
+        note.id === id ? { ...note, ...updatedNote } : note
+      ),
+    }));
+  },
+  deleteNote: (id) => {
+    set((state) => ({
+      notes: state.notes.filter((note) => note.id !== id),
+    }));
+  },
+  clearNotes: () => set({ notes: [] }),
+}));
