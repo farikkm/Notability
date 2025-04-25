@@ -30,8 +30,11 @@ export const MyCard: React.FC<Partial<NoteType>> = ({ content, title }) => {
         onCancel={handleCancel}
         footer={null}
         width={700}
-        bodyStyle={{padding: 0}}
-        style={{ borderRadius: 12, overflow: "hidden" }}
+        styles={{
+          body: {
+            padding: 0,
+          },
+        }}
         centered
       >
         <div className="p-6">
