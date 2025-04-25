@@ -3,11 +3,14 @@ import { NoteType } from "shared/types";
 
 interface NotesState {
   notes: NoteType[];
+
+  loading: boolean;
   error: string | null;
 
   // Mutations
   setNotes: (notes: NoteType[]) => void;
   setError: (error: string | null) => void;
+  setLoading: (loading: boolean) => void;
 
   // Actions
   addNote: (note: NoteType) => void;
@@ -18,14 +21,17 @@ interface NotesState {
 
 export const useNotesStore = create<NotesState>()((set) => ({
   notes: [],
+
+  loading: false,
   error: null,
 
   setError: (error) => set({ error }),
   setNotes: (notes) => set({ notes }),
+  setLoading: (loading) => set({ loading }),
 
   // Actions
   addNote: (note) => {
-    set((state) => ({ notes: [...state.notes, note] }));
+    set((state) => ({ notes: [note, ...state.notes] }));
   },
   updateNote: (id, updatedNote) => {
     set((state) => ({
