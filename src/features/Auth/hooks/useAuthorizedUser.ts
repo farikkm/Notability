@@ -1,7 +1,7 @@
-import { useUserStore } from "entities/User/model";
-import { useEffect, useState } from "react";
-import { getUserInfo } from "shared/api";
 import { UserInfo } from "shared/types";
+import { useEffect, useState } from "react";
+import { getUserInfo } from "features/Auth/api";
+import { useUserStore } from "entities/User/model";
 
 export const useAuthorizedUser = () => {
   const logout = useUserStore((state) => state.logout);
