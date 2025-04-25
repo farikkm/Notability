@@ -1,4 +1,5 @@
 import { NoteType } from "shared/types";
+import { MyCard } from "shared/ui/components";
 
 type NotesListProps = {
   notes: NoteType[];
@@ -22,10 +23,7 @@ export const NotesList = ({ notes, error }: NotesListProps) => {
         <ul className="notes-list">
           {notes &&
             notes.map((note) => (
-              <li key={note._id}>
-                <h2>{note.title}</h2>
-                <p>{note.content}</p>
-              </li>
+              <MyCard title={note.title} content={note.content} key={note._id} />
             ))}
         </ul>
       )}
