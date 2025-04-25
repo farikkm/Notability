@@ -1,10 +1,9 @@
-import React from 'react';
-import { Card } from 'antd';
+import React from "react";
+import { Card } from "antd";
+import { NoteType } from "shared/types";
 
-export const MyCard: React.FC = () => (
-  <Card title="Card title" variant="borderless" style={{ width: 300 }}>
-    <p>Card content</p>
-    <p>Card content</p>
-    <p>Card content</p>
+export const MyCard: React.FC<NoteType> = ({ content, title }) => (
+  <Card title={title} variant="borderless" style={{ width: 500 }}>
+    <p>{content}</p>
   </Card>
 );
