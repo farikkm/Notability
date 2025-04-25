@@ -3,20 +3,15 @@ import { Card, Modal } from "antd";
 import { NoteType } from "shared/types";
 
 export const MyCard: React.FC<Partial<NoteType>> = ({ content, title }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-  
-    const showModal = () => {
-      setIsModalOpen(true);
-    };
-  
-    const handleOk = () => {
-      setIsModalOpen(false);
-    };
-  
-    const handleCancel = () => {
-      setIsModalOpen(false);
-    };
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -26,19 +21,25 @@ export const MyCard: React.FC<Partial<NoteType>> = ({ content, title }) => {
         style={{ width: "100%", backgroundColor: "#fefce8" }}
         onClick={showModal}
         hoverable
+        className="cursor-pointer select-none"
       >
         <p>{content}</p>
       </Card>
       <Modal
-        title="Basic Modal"
         open={isModalOpen}
-        onOk={handleOk}
         onCancel={handleCancel}
+        footer={null}
+        width={700}
+        bodyStyle={{padding: 0}}
+        style={{ borderRadius: 12, overflow: "hidden" }}
+        centered
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <div className="p-6">
+          <h2 className="text-xl font-semibold text-center mb-4">{title}</h2>
+          <div className="w-full h-[1px] bg-black mb-4" />
+          <p className="text-base">{content}</p>
+        </div>
       </Modal>
     </>
-  );  
-}
+  );
+};
