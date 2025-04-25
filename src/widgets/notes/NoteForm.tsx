@@ -2,8 +2,8 @@ import { useNoteForm } from "shared/hooks";
 import { Form, Input, Button } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useNotesStore } from "entities/Notes/model";
-import { createNotePayload } from "features/Notes/crud/add-note/lib";
-import { addNoteRequest } from "features/Notes/crud/add-note/model";
+import { createNotePayload } from "features/Notes/lib";
+import { addNoteRequest } from "features/Notes/hooks";
 
 export const NoteForm = () => {
   const { title, content, handleTitleChange, handleContentChange, resetForm } =
@@ -16,8 +16,10 @@ export const NoteForm = () => {
     const newNote = createNotePayload(title, content);
 
     try {
-      const noteID = await addNoteRequest(newNote);
-      addNote({ ...newNote, _id: noteID });
+      const note = await addNoteRequest(newNote);
+      console.log(note);
+      
+      addNote({ ...newNote, _id: note.noteId });
       resetForm();
     } catch (error) {
       console.error("Error:", error);

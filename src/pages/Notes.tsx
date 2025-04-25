@@ -1,14 +1,22 @@
 import { NoteForm } from "widgets/notes";
-import { useFetchNotes } from "shared/hooks";
 import { NotesHeader, NotesList } from "entities/Notes/ui";
 import { LoginButton, LogoutButton } from "features/Auth/ui";
 import { useAuthorizedUser } from "features/Auth/hooks/useAuthorizedUser";
 import { useClearNotesOnUnmount } from "features/Notes/hooks/useClearNotesOnUnmount";
+import { useNotesStore } from "entities/Notes/model";
+import { useLoadNotes } from "features/Notes/hooks";
+import { Spin } from "antd";
 
 const Notes = () => {
   const userInfo = useAuthorizedUser();
-  const { notes, error } = useFetchNotes();
+  const notes = useNotesStore((state) => state.notes);
 
+  // States
+  const error = useNotesStore((state) => state.error);
+  const loading = useNotesStore((state) => state.loading);
+
+  // Hooks
+  useLoadNotes();
   useClearNotesOnUnmount([]);
 
   return (
@@ -19,7 +27,7 @@ const Notes = () => {
 
       <NoteForm />
 
-      <NotesList notes={notes || []} error={error} />
+      {loading ? <Spin /> : <NotesList notes={notes || []} error={error} />}
 
       <LogoutButton />
     </div>
