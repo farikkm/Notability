@@ -1,2 +1,3 @@
-export * from "./AuthorizedUserCard";
+export * from "./MyCard";
 export * from "./MyModal";
+export * from "./AuthorizedUserCard";
