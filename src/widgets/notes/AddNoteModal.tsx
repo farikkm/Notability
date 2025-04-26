@@ -6,9 +6,12 @@ import { createNotePayload } from "features/Notes/lib";
 import { addNoteRequest } from "features/Notes/hooks";
 import { useNotesStore } from "entities/Notes/model";
 
-const AddNoteModal = () => {
+export const AddNoteModal = () => {
+  // States
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const addNote = useNotesStore((state) => state.addNote)
 
+  // UI
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -17,8 +20,7 @@ const AddNoteModal = () => {
     setIsModalOpen(false);
   };
 
-  const addNote = useNotesStore((state) => state.addNote)
-
+  // Handlers
   const handleSubmit = async (values: { title: string; content: string }) => {
     const newNote = createNotePayload(values.title, values.content);
 
@@ -53,5 +55,3 @@ const AddNoteModal = () => {
     </>
   );
 }
-
-export default AddNoteModal
