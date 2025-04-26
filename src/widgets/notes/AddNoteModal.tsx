@@ -49,7 +49,7 @@ export const AddNoteModal = () => {
       >
         <div className="p-6">
           <h2 className="text-2xl text-center">Add Note</h2>
-          <NoteForm onSubmit={handleSubmit}/>
+          <NoteForm onSubmit={handleSubmit} title="" content="" />
         </div>
       </Modal>
     </>

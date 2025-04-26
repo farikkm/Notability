@@ -1,8 +1,8 @@
 import { Card } from "antd";
 import { NoteType } from "shared/types";
-import { DeleteNoteButton } from "features/Notes/ui";
 import UpdateNoteModal from "widgets/notes/UpdateNoteModal";
 import { ShowModalInfo } from "widgets/notes/ShowNoteInfoModal";
+import { DeleteNotePop } from "widgets/notes/DeleteNotePop";
 
 export const MyCard: React.FC<Pick<NoteType, "content" | "title">> = ({ content, title }) => {
   return (
@@ -13,7 +13,7 @@ export const MyCard: React.FC<Pick<NoteType, "content" | "title">> = ({ content,
           <div className="flex gap-3">
             <ShowModalInfo title={title} content={content} />
             <UpdateNoteModal title={title} content={content} />
-            <DeleteNoteButton onClick={() => {}} />
+            <DeleteNotePop />
           </div>
         </div>
       }
