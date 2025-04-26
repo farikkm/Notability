@@ -12,7 +12,7 @@ export const MyCard: React.FC<Partial<NoteType>> = ({ content, title }) => {
           <h3 className="truncate">{title}</h3>
           <div className="flex gap-3">
             <ShowModalInfo title={title} content={content} />
-            <UpdateNoteModal />
+            <UpdateNoteModal title={title} content={content} />
             <DeleteNoteButton onClick={() => {}} />
           </div>
         </div>

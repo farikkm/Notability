@@ -3,17 +3,22 @@ import { NoteForm } from "entities/Notes/ui";
 import { UpdateNoteButton } from "features/Notes/ui/UpdateNoteButton";
 import { useState } from "react";
 
-const UpdateNoteModal = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-  
-    // UI
-    const showModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
-  
-    const handleCancel = () => {
-      closeModal();
-    };
-  
+const UpdateNoteModal = ({
+  title,
+  content,
+}: {
+  title?: string;
+  content?: string;
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // UI
+  const showModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleCancel = () => {
+    closeModal();
+  };
 
   return (
     <>
@@ -32,7 +37,7 @@ const UpdateNoteModal = () => {
       >
         <div className="p-6">
           <h2 className="text-2xl text-center">Update Note</h2>
-          <NoteForm onSubmit={async () => {}}/>
+          <NoteForm onSubmit={async () => {}} title={title} content={content} buttonValue="Update Note" />
         </div>
       </Modal>
     </>
