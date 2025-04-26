@@ -7,8 +7,8 @@ const UpdateNoteModal = ({
   title,
   content,
 }: {
-  title?: string;
-  content?: string;
+  title: string;
+  content: string;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 

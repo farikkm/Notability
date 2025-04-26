@@ -1,7 +1,7 @@
 import { Input, InputRef } from "antd";
 import { useRef, useEffect } from "react";
 
-export const AutoFocusInput = ({ value }: { value?: string }) => {
+export const AutoFocusInput = ({ value }: { value: string }) => {
   const inputRef = useRef<InputRef | null>(null);
 
   useEffect(() => {

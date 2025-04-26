@@ -4,7 +4,7 @@ import { DeleteNoteButton } from "features/Notes/ui";
 import UpdateNoteModal from "widgets/notes/UpdateNoteModal";
 import { ShowModalInfo } from "widgets/notes/ShowNoteInfoModal";
 
-export const MyCard: React.FC<Partial<NoteType>> = ({ content, title }) => {
+export const MyCard: React.FC<Pick<NoteType, "content" | "title">> = ({ content, title }) => {
   return (
     <Card
       title={
