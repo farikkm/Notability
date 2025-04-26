@@ -14,8 +14,8 @@ export const NoteForm: React.FC<NoteFormProps> = ({ onSubmit }) => {
   const [form] = Form.useForm();
 
   const handleFinish = async (values: NoteFormValues) => {
-    await onSubmit(values); // ждём выполнение
-    form.resetFields();     // потом сбрасываем
+    await onSubmit(values);
+    form.resetFields();     
   };
 
   return (
