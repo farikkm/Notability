@@ -8,8 +8,8 @@ export const MyCard: React.FC<Partial<NoteType>> = ({ content, title }) => {
   return (
     <Card
       title={
-        <div className="flex justify-between items-center">
-          <h3>{title}</h3>
+        <div className="flex justify-between items-center gap-2">
+          <h3 className="truncate">{title}</h3>
           <div className="flex gap-3">
             <ShowModalInfo title={title} content={content} />
             <UpdateNoteModal />
