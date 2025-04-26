@@ -8,8 +8,8 @@ export interface NoteFormValues {
 }
 
 interface NoteFormProps {
-  title?: string;
-  content?: string;
+  title: string;
+  content: string;
   buttonValue?: string;
   onSubmit: (values: NoteFormValues) => Promise<void>;
 }
