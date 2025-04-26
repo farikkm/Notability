@@ -1,48 +1,28 @@
-import React, { useState } from "react";
-import { Card, Modal } from "antd";
+import { Card } from "antd";
 import { NoteType } from "shared/types";
+import { DeleteNoteButton } from "features/Notes/ui";
+import UpdateNoteModal from "widgets/notes/UpdateNoteModal";
+import { ShowModalInfo } from "widgets/notes/ShowNoteInfoModal";
 
 export const MyCard: React.FC<Partial<NoteType>> = ({ content, title }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
   return (
-    <>
-      <Card
-        title={title}
-        variant="outlined"
-        style={{ width: "100%", backgroundColor: "#fefce8" }}
-        onClick={showModal}
-        hoverable
-        className="cursor-pointer select-none"
-      >
-        <p>{content}</p>
-      </Card>
-      <Modal
-        open={isModalOpen}
-        onCancel={handleCancel}
-        footer={null}
-        width={700}
-        styles={{
-          body: {
-            padding: 0,
-          },
-        }}
-        centered
-      >
-        <div className="p-6">
-          <h2 className="text-xl font-semibold text-center mb-4">{title}</h2>
-          <div className="w-full h-[1px] bg-black mb-4" />
-          <p className="text-base">{content}</p>
+    <Card
+      title={
+        <div className="flex justify-between items-center">
+          <h3>{title}</h3>
+          <div className="flex gap-3">
+            <ShowModalInfo title={title} content={content} />
+            <UpdateNoteModal />
+            <DeleteNoteButton onClick={() => {}} />
+          </div>
         </div>
-      </Modal>
-    </>
+      }
+      variant="outlined"
+      style={{ width: "100%", backgroundColor: "#fefce8", cursor: "default" }}
+      hoverable
+      className="select-none"
+    >
+      <p>{content}</p>
+    </Card>
   );
 };
