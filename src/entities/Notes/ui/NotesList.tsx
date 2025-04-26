@@ -23,7 +23,7 @@ export const NotesList = ({ notes, error }: NotesListProps) => {
         <ul className="notes-list">
           {notes &&
             notes.map((note) => (
-              <MyCard title={note.title} content={note.content} _id={note._id} key={note._id} />
+              <MyCard title={note.title} content={note.content} key={note._id} />
             ))}
         </ul>
       )}
