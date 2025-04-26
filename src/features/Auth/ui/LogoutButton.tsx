@@ -10,5 +10,5 @@ export const LogoutButton = () => {
     navigate("/login", { replace: true });
   };
 
-  return <button onClick={handleLogout}>Log Out</button>;
+  return <button className="bg-gray-100 p-2 rounded-2xl" onClick={handleLogout}>Log Out</button>;
 };

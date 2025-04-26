@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-mobile-l: 425px;
+}
+
 /* =================== Auth =================== */
 
 .auth-wrapper {
@@ -37,5 +41,5 @@
 
 /* Notes */
 .notes-list {
-  @apply grid grid-cols-4 gap-6;
+  @apply grid grid-cols-1 gap-6 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2;
 }

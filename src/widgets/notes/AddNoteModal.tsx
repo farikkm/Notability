@@ -12,12 +12,11 @@ export const AddNoteModal = () => {
   const addNote = useNotesStore((state) => state.addNote)
 
   // UI
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
+  const showModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const handleCancel = () => {
-    setIsModalOpen(false);
+    closeModal();
   };
 
   // Handlers
@@ -27,6 +26,7 @@ export const AddNoteModal = () => {
     try {
       const note = await addNoteRequest(newNote);
       addNote({ ...newNote, _id: note.noteId });
+      closeModal();
     } catch (error) {
       console.error("Error:", error);
     }
