@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { Modal } from "antd";
+import { useState } from "react";
+import { NoteForm } from "entities/Notes/ui";
 import { AddNoteButton } from "features/Notes/ui";
-import { NoteForm } from "entities/Notes/ui/NoteForm";
 import { createNotePayload } from "features/Notes/lib";
 import { addNoteRequest } from "features/Notes/hooks";
 import { useNotesStore } from "entities/Notes/model";
