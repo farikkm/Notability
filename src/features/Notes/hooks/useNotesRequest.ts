@@ -12,6 +12,10 @@ type UpdatedNoteResponseType = {
   note: NoteType;
 }
 
+type DeletedNoteResponseType = {
+  message: string;
+}
+
 export const getNotesRequest = async () => {
   const token = getToken();
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -81,7 +85,31 @@ export const updateNoteRequest = async (
     return data;
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error occured while adding new note");
+      console.error("Error occured while updating the note");
+    }
+    throw error;
+  }
+};
+
+export const deleteNoteRequest = async (
+  {_id}: Pick<NoteType, "_id">
+): Promise<DeletedNoteResponseType> => {
+  const token = getToken();
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+  
+  try {
+    const data = await safeFetch(`${apiBaseUrl}/api/notes/delete/${_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error occured while deleting the note");
     }
     throw error;
   }

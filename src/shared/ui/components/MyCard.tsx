@@ -13,7 +13,7 @@ export const MyCard: React.FC<Pick<NoteType, "content" | "title" | "_id">> = ({ 
           <div className="flex gap-3">
             <ShowModalInfo title={title} content={content} />
             <UpdateNoteModal title={title} content={content} noteId={_id} />
-            <DeleteNotePop />
+            <DeleteNotePop noteId={_id} />
           </div>
         </div>
       }
