@@ -25,9 +25,7 @@ const UpdateNoteModal = ({
     closeModal();
   };
 
-  const handleSubmit = async (values: { title: string; content: string }) => {
-    console.log(noteId);
-    
+  const handleSubmit = async (values: { title: string; content: string }) => {  
     try {
       const data = await updateNoteRequest(
         { _id: noteId },

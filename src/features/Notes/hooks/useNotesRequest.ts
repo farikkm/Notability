@@ -67,10 +67,7 @@ export const updateNoteRequest = async (
 ): Promise<UpdatedNoteResponseType> => {
   const token = getToken();
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-
-  console.log(_id);
   
-
   try {
     const data = await safeFetch(`${apiBaseUrl}/api/notes/update/${_id}`, {
       method: "PATCH",
