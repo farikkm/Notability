@@ -163,10 +163,11 @@ app.patch("/api/notes/update/:id", verifyToken, async (req, res) => {
 
   try {
     const updatedNote = await Note.findByIdAndUpdate(
-      { _id: noteID, userId },
+      noteID,
       {
         title,
         content,
+        userId,
         updatedAt: new Date(),
       },
       { new: true }

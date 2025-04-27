@@ -4,7 +4,7 @@ import UpdateNoteModal from "widgets/notes/UpdateNoteModal";
 import { ShowModalInfo } from "widgets/notes/ShowNoteInfoModal";
 import { DeleteNotePop } from "widgets/notes/DeleteNotePop";
 
-export const MyCard: React.FC<Pick<NoteType, "content" | "title">> = ({ content, title }) => {
+export const MyCard: React.FC<Pick<NoteType, "content" | "title" | "_id">> = ({ _id, content, title }) => {
   return (
     <Card
       title={
@@ -12,7 +12,7 @@ export const MyCard: React.FC<Pick<NoteType, "content" | "title">> = ({ content,
           <h3 className="truncate">{title}</h3>
           <div className="flex gap-3">
             <ShowModalInfo title={title} content={content} />
-            <UpdateNoteModal title={title} content={content} />
+            <UpdateNoteModal title={title} content={content} noteId={_id} />
             <DeleteNotePop />
           </div>
         </div>

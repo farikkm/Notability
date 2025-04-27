@@ -34,6 +34,10 @@ export const useNotesStore = create<NotesState>()((set) => ({
     set((state) => ({ notes: [note, ...state.notes] }));
   },
   updateNote: (id, updatedNote) => {
+    console.log("id: ", id);
+    console.log("Note: ", updatedNote);
+    
+    
     set((state) => ({
       notes: state.notes.map((note) =>
         note._id === id ? { ...note, ...updatedNote } : note
