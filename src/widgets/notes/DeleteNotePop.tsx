@@ -15,7 +15,7 @@ export const DeleteNotePop = ({ noteId }: { noteId: string }) => {
       console.error("Error:", error);
     }
   };
-  
+
   const cancel: PopconfirmProps["onCancel"] = () => {
     message.error("Click on No");
   };
@@ -32,7 +32,6 @@ export const DeleteNotePop = ({ noteId }: { noteId: string }) => {
       <Button
         type="default"
         icon={<Trash2 size={16} />}
-        onClick={() => {}}
         style={{
           display: "flex",
           alignItems: "center",
@@ -57,4 +56,4 @@ export const DeleteNotePop = ({ noteId }: { noteId: string }) => {
       />
     </Popconfirm>
   );
-}
+};
