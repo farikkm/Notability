@@ -1,6 +1,6 @@
-import { Form, Button } from "antd";
+import { Form, Button, Input, InputRef } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { AutoFocusInput } from "shared/ui/components";
+import { useEffect, useRef } from "react";
 
 export interface NoteFormValues {
   title: string;
@@ -21,6 +21,14 @@ export const NoteForm: React.FC<NoteFormProps> = ({
   buttonValue = "Do something with note",
 }) => {
   const [form] = Form.useForm();
+  const inputRef = useRef<InputRef | null>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.input?.select();
+    }
+  }, []);
 
   form.setFieldValue("title", title);
   form.setFieldValue("content", content);
@@ -37,7 +45,7 @@ export const NoteForm: React.FC<NoteFormProps> = ({
         name="title"
         rules={[{ required: true, message: "Please enter a title" }]}
       >
-        <AutoFocusInput value={title} />
+        <Input ref={inputRef} />
       </Form.Item>
 
       <Form.Item
