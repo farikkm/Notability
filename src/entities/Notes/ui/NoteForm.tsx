@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import TextArea from "antd/es/input/TextArea";
 import { autoFocusInput } from "shared/lib/form";
-import { Form, Button, Input, InputRef } from "antd";
+import { Form, Button, Input, InputRef, Spin } from "antd";
 
 export interface NoteFormValues {
   title: string;
@@ -23,6 +23,7 @@ export const NoteForm: React.FC<NoteFormProps> = ({
 }) => {
   const [form] = Form.useForm();
   const inputRef = useRef<InputRef | null>(null);
+  const [serverResponed, setServerResponed] = useState(true);
 
   useEffect(() => {
     form.setFieldsValue({
@@ -36,12 +37,14 @@ export const NoteForm: React.FC<NoteFormProps> = ({
   }, []);
 
   const handleFinish = async (values: NoteFormValues) => {
+    setServerResponed(false);
     await onSubmit(values);
+    setServerResponed(true);
     form.resetFields();
   };
 
   return (
-    <Form form={form} layout="vertical" onFinish={handleFinish} id="add-note">
+    <Form form={form} layout="vertical" onFinish={handleFinish}>
       <Form.Item
         label="Title"
         name="title"
@@ -59,8 +62,8 @@ export const NoteForm: React.FC<NoteFormProps> = ({
       </Form.Item>
 
       <Form.Item>
-        <Button htmlType="submit" block>
-          {buttonValue}
+        <Button htmlType="submit" disabled={!serverResponed} block>
+          {!serverResponed ? <Spin /> : buttonValue}
         </Button>
       </Form.Item>
     </Form>
