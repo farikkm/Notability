@@ -1,6 +1,7 @@
-import { Form, Button, Input, InputRef } from "antd";
-import TextArea from "antd/es/input/TextArea";
 import { useEffect, useRef } from "react";
+import TextArea from "antd/es/input/TextArea";
+import { autoFocusInput } from "shared/lib/form";
+import { Form, Button, Input, InputRef } from "antd";
 
 export interface NoteFormValues {
   title: string;
@@ -24,14 +25,15 @@ export const NoteForm: React.FC<NoteFormProps> = ({
   const inputRef = useRef<InputRef | null>(null);
 
   useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.input?.select();
-    }
-  }, []);
+    form.setFieldsValue({
+      title,
+      content,
+    });
+  }, [title, content]);
 
-  form.setFieldValue("title", title);
-  form.setFieldValue("content", content);
+  useEffect(() => {
+    autoFocusInput(inputRef);
+  }, []);
 
   const handleFinish = async (values: NoteFormValues) => {
     await onSubmit(values);
