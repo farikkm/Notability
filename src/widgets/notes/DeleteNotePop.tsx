@@ -14,8 +14,6 @@ export const DeleteNotePop = ({ noteId }: { noteId: string }) => {
     } catch (error) {
       console.error("Error:", error);
     }
-    
-    message.success("Click on Yes");
   };
   
   const cancel: PopconfirmProps["onCancel"] = () => {
