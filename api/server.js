@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { message } from "antd";
 
 const app = express();
 
@@ -145,6 +146,61 @@ app.post("/api/notes/add", verifyToken, async (req, res) => {
     res
       .status(201)
       .json({ message: "Note created successfully", noteId: newNote._id });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Update the note
+app.patch("/api/notes/update/:id", verifyToken, async (req, res) => {
+  const userId = req.userId;
+  const noteID = req.params.id;
+  const { title, content } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(noteID)) {
+    return res.status(400).json({ message: "Invalid note ID" });
+  }
+
+  try {
+    const updatedNote = await Note.findByIdAndUpdate(
+      { _id: noteID, userId },
+      {
+        title,
+        content,
+        updatedAt: new Date(),
+      },
+      { new: true }
+    );
+
+    if (!updatedNote) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Note updated successfully", note: updatedNote });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Delete the note
+app.delete("/api/notes/delete/:id", verifyToken, async (req, res) => {
+  const userId = req.userId;
+  const noteID = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(noteID)) {
+    return res.status(400).json({ message: "Invalid note ID" });
+  }
+
+  try {
+    const deletedNote = await Note.findOneAndDelete({ _id: noteID, userId });
+
+    if (!deletedNote) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+
+    res.status(200).json({ message: "Note deleted" });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
