@@ -53,5 +53,5 @@ export const addNoteRequest = async (
     }
   }
 
-  return { noteId: "new-note" };
+  return { noteId: `new-note ${new Date()}` };
 };
