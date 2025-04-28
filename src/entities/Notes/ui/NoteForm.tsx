@@ -12,6 +12,7 @@ interface NoteFormProps {
   title: string;
   content: string;
   buttonValue?: string;
+  isModalOpen?: boolean;
   onSubmit: (values: NoteFormValues) => Promise<void>;
 }
 
@@ -19,22 +20,22 @@ export const NoteForm: React.FC<NoteFormProps> = ({
   title,
   content,
   onSubmit,
+  isModalOpen,
   buttonValue = "Do something with note",
 }) => {
   const [form] = Form.useForm();
   const inputRef = useRef<InputRef | null>(null);
   const [serverResponed, setServerResponed] = useState(true);
 
-  useEffect(() => {
-    form.setFieldsValue({
-      title,
-      content,
-    });
-  }, [title, content]);
+  const currentTitle = Form.useWatch('title', form);
+  const currentContent = Form.useWatch('content', form);
+
+  const fieldsChanged = title !== currentTitle || content !== currentContent;
 
   useEffect(() => {
+    form.setFieldsValue({ title, content });
     autoFocusInput(inputRef);
-  }, []);
+  }, [isModalOpen, title, content, form]);
 
   const handleFinish = async (values: NoteFormValues) => {
     setServerResponed(false);
@@ -44,7 +45,11 @@ export const NoteForm: React.FC<NoteFormProps> = ({
   };
 
   return (
-    <Form form={form} layout="vertical" onFinish={handleFinish}>
+    <Form
+      form={form}
+      layout="vertical"
+      onFinish={handleFinish}
+    >
       <Form.Item
         label="Title"
         name="title"
@@ -62,7 +67,7 @@ export const NoteForm: React.FC<NoteFormProps> = ({
       </Form.Item>
 
       <Form.Item>
-        <Button htmlType="submit" disabled={!serverResponed} block>
+        <Button htmlType="submit" disabled={!serverResponed || !fieldsChanged} block>
           {!serverResponed ? <Spin /> : buttonValue}
         </Button>
       </Form.Item>

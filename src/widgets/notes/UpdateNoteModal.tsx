@@ -8,29 +8,33 @@ import { useState } from "react";
 const UpdateNoteModal = ({
   title,
   content,
-  noteId
+  noteId,
 }: {
   title: string;
   content: string;
   noteId: string;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const updateNote = useNotesStore((state) => state.updateNote)
+  const updateNote = useNotesStore((state) => state.updateNote);
 
   // UI
-  const showModal = () => setIsModalOpen(true);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
   const closeModal = () => setIsModalOpen(false);
 
   const handleCancel = () => {
     closeModal();
   };
 
-  const handleSubmit = async (values: { title: string; content: string }) => {  
+  const handleSubmit = async (values: { title: string; content: string }) => {
     try {
       const data = await updateNoteRequest(
         { _id: noteId },
         { title: values.title, content: values.content }
       );
+      console.log(data.note);
+
       updateNote(data.note._id, data.note);
       closeModal();
     } catch (error) {
@@ -41,28 +45,31 @@ const UpdateNoteModal = ({
   return (
     <>
       <UpdateNoteButton onClick={showModal} />
-      <Modal
-        open={isModalOpen}
-        onCancel={handleCancel}
-        footer={null}
-        width={700}
-        styles={{
-          body: {
-            padding: 0,
-          },
-        }}
-        centered
-      >
-        <div className="p-6">
-          <h2 className="text-2xl text-center">Update Note</h2>
-          <NoteForm
-            onSubmit={handleSubmit}
-            title={title}
-            content={content}
-            buttonValue="Update Note"
-          />
-        </div>
-      </Modal>
+      {isModalOpen && (
+        <Modal
+          open={isModalOpen}
+          onCancel={handleCancel}
+          footer={null}
+          width={700}
+          styles={{
+            body: {
+              padding: 0,
+            },
+          }}
+          centered
+        >
+          <div className="p-6">
+            <h2 className="text-2xl text-center">Update Note</h2>
+            <NoteForm
+              onSubmit={handleSubmit}
+              title={title}
+              content={content}
+              buttonValue="Update Note"
+              isModalOpen={isModalOpen}
+            />
+          </div>
+        </Modal>
+      )}
     </>
   );
 };
