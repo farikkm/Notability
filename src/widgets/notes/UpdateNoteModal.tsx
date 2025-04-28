@@ -45,31 +45,29 @@ const UpdateNoteModal = ({
   return (
     <>
       <UpdateNoteButton onClick={showModal} />
-      {isModalOpen && (
-        <Modal
-          open={isModalOpen}
-          onCancel={handleCancel}
-          footer={null}
-          width={700}
-          styles={{
-            body: {
-              padding: 0,
-            },
-          }}
-          centered
-        >
-          <div className="p-6">
-            <h2 className="text-2xl text-center">Update Note</h2>
-            <NoteForm
-              onSubmit={handleSubmit}
-              title={title}
-              content={content}
-              buttonValue="Update Note"
-              isModalOpen={isModalOpen}
-            />
-          </div>
-        </Modal>
-      )}
+      <Modal
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={null}
+        width={700}
+        styles={{
+          body: {
+            padding: 0,
+          },
+        }}
+        centered
+      >
+        <div className="p-6">
+          <h2 className="text-2xl text-center">Update Note</h2>
+          <NoteForm
+            onSubmit={handleSubmit}
+            title={title}
+            content={content}
+            buttonValue="Update Note"
+            isModalOpen={isModalOpen}
+          />
+        </div>
+      </Modal>
     </>
   );
 };
