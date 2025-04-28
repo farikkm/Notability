@@ -38,7 +38,7 @@ export const AuthLayout = ({
         {email ? (
           <AuthorizedUserCard handleClick={handleCardClick || (() => {})} email={email} />
         ) : (
-          <div className="h-20 bg-muted rounded-xl animate-pulse" />
+          <div className="h-20 bg-muted rounded-xl" />
         )}
       </motion.div>
     </div>

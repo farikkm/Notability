@@ -18,7 +18,7 @@ export const MyCard: React.FC<Pick<NoteType, "content" | "title" | "_id">> = ({ 
         </div>
       }
       variant="outlined"
-      style={{ width: "100%", backgroundColor: "#fefce8", cursor: "default" }}
+      style={{ width: "100%", cursor: "default" }}
       hoverable
       className="select-none"
     >
