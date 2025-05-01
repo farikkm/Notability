@@ -30,29 +30,29 @@ export const DeleteNotePop = ({ noteId }: { noteId: string }) => {
       cancelText="No"
     >
       <Button
-        type="default"
+        type="dashed"
         icon={<Trash2 size={16} />}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          transition: "all 0.3s ease",
-          backgroundColor: "#fff",
-          borderColor: "#d9d9d9",
-          color: "rgba(0, 0, 0, 0.88)",
-        }}
-        onMouseEnter={(e) => {
-          const target = e.currentTarget;
-          target.style.backgroundColor = "#ff4d4f"; // красный
-          target.style.borderColor = "#ff4d4f";
-          target.style.color = "white";
-        }}
-        onMouseLeave={(e) => {
-          const target = e.currentTarget;
-          target.style.backgroundColor = "#fff"; // default
-          target.style.borderColor = "#d9d9d9";
-          target.style.color = "rgba(0, 0, 0, 0.88)";
-        }}
+        // style={{
+        //   display: "flex",
+        //   alignItems: "center",
+        //   gap: 8,
+        //   transition: "all 0.3s ease",
+        //   backgroundColor: "#fff",
+        //   borderColor: "#d9d9d9",
+        //   color: "rgba(0, 0, 0, 0.88)",
+        // }}
+        // onMouseEnter={(e) => {
+        //   const target = e.currentTarget;
+        //   target.style.backgroundColor = "#ff4d4f"; // красный
+        //   target.style.borderColor = "#ff4d4f";
+        //   target.style.color = "white";
+        // }}
+        // onMouseLeave={(e) => {
+        //   const target = e.currentTarget;
+        //   target.style.backgroundColor = "#fff"; // default
+        //   target.style.borderColor = "#d9d9d9";
+        //   target.style.color = "rgba(0, 0, 0, 0.88)";
+        // }}
       />
     </Popconfirm>
   );

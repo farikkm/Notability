@@ -13,7 +13,7 @@ export const ShowNoteInfoButton: React.FC<ShowNoteInfoButtonProps> = ({
 
   return (
     <Button
-      type="default"
+      type="dashed"
       icon={
         <span
           className="transition-all duration-300 ease-in-out"
@@ -25,15 +25,15 @@ export const ShowNoteInfoButton: React.FC<ShowNoteInfoButtonProps> = ({
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-        transition: "all 0.3s ease",
-        backgroundColor: "#fff",
-        borderColor: "#d9d9d9",
-        color: "rgba(0, 0, 0, 0.88)",
-      }}
+      // style={{
+      //   display: "flex",
+      //   alignItems: "center",
+      //   gap: 8,
+      //   transition: "all 0.3s ease",
+      //   backgroundColor: "#fff",
+      //   borderColor: "#d9d9d9",
+      //   color: "rgba(0, 0, 0, 0.88)",
+      // }}
     ></Button>
   );
 };
