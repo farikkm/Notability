@@ -10,3 +10,5 @@ export type NoteType = {
   createdAt: string;
   updatedAt: string;
 }
+
+export type ThemeType = "dark" | "light"
