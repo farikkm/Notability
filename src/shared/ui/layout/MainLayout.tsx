@@ -10,7 +10,7 @@ export const MainLayout = () => {
   }, [theme]);
 
   return (
-    <div className="h-screen w-screen bg-gray-100 dark:bg-gray-800 text-black transition-colors duration-300">
+    <div className="h-screen w-screen bg-gray-50 dark:bg-gray-800 text-black transition-colors duration-300">
       <Outlet />
     </div>
   )
