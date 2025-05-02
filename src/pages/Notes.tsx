@@ -7,9 +7,8 @@ import { LoginButton, LogoutButton } from "features/Auth/ui";
 import { useClearNotesOnUnmount } from "features/Notes/hooks/useClearNotesOnUnmount";
 
 const Notes = () => {
+  // State
   const notes = useNotesStore((state) => state.notes);
-
-  // States
   const error = useNotesStore((state) => state.error);
   const loading = useNotesStore((state) => state.loading);
 
@@ -18,7 +17,7 @@ const Notes = () => {
   useClearNotesOnUnmount([]);
 
   return (
-    <div className="p-5 container mx-auto">
+    <div className={`p-5 container mx-auto`}>
       <div className="w-full flex justify-between">
         <LoginButton />
         <LogoutButton />
@@ -29,7 +28,11 @@ const Notes = () => {
         <AddNoteModal />
       </div>
 
-      {loading ? <LoadingSpinner /> : <NotesList notes={notes || []} error={error} />}
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <NotesList notes={notes || []} error={error} />
+      )}
     </div>
   );
 };
