@@ -66,6 +66,7 @@ const RegisterForm = () => {
         password,
         confirmPassword,
       }}
+      autoComplete="off"
     >
       <Form.Item
         label={<span className="font-bold">Email</span>}
@@ -76,7 +77,11 @@ const RegisterForm = () => {
         ]}
         style={{ marginBottom: 10 }}
       >
-        <Input value={email} onChange={(e) => setEmail(e.target.value)} />
+        <Input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete="off"
+        />
       </Form.Item>
       {emailErrorMessage && <Text type="danger">{emailErrorMessage}</Text>}
 
@@ -89,6 +94,7 @@ const RegisterForm = () => {
         <Input.Password
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          autoComplete="off"
         />
       </Form.Item>
       {passwordErrorMessage && (
@@ -104,6 +110,7 @@ const RegisterForm = () => {
         <Input.Password
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          autoComplete="off"
         />
       </Form.Item>
 

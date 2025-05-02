@@ -51,6 +51,7 @@ const LoginForm = () => {
       layout="vertical"
       onFinish={handleSubmit}
       initialValues={{ email, password }}
+      autoComplete="off"
     >
       <Form.Item
         label={<span className="font-bold">Email</span>}
@@ -65,6 +66,7 @@ const LoginForm = () => {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete="off"
         />
       </Form.Item>
 
@@ -79,6 +81,7 @@ const LoginForm = () => {
         <Input.Password
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          autoComplete="off"
         />
       </Form.Item>
 
