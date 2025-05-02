@@ -4,7 +4,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { message } from "antd";
 
 const app = express();
 
