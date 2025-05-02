@@ -15,7 +15,7 @@ export const NotesList = ({ notes, error }: NotesListProps) => {
         </div>
       )}
       {notes && notes.length === 0 && (
-        <div className="no-notes-message text-center mt-4">
+        <div className="no-notes-message text-center mt-4 dark:text-white">
           No notes available. Please add a note.
         </div>
       )}
