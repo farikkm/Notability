@@ -4,6 +4,8 @@
   --breakpoint-mobile-l: 425px;
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* =================== Auth =================== */
 
 .auth-wrapper {
@@ -11,15 +13,15 @@
 }
 
 .auth-cart {
-  @apply bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4;
+  @apply bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 dark:bg-black;
 }
 
 .auth-title {
-  @apply text-2xl font-bold text-center mb-2;
+  @apply text-2xl font-bold text-center mb-2 dark:text-white;
 }
 
 .auth-description {
-  @apply text-center text-sm;
+  @apply text-center text-sm dark:text-white;
 }
 
 /* User Card */
