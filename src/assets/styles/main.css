@@ -6,6 +6,11 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* =================== Logo =================== */
+.logo {
+  @apply flex items-center gap-2 text-yellow-500 dark:*:text-white;
+}
+
 /* =================== Auth =================== */
 
 .auth-wrapper {
@@ -38,7 +43,7 @@
 }
 
 .icon-text-wrapper {
-  @apply bg-gray-100 rounded-full w-24 h-12 flex items-center justify-center gap-2 hover:bg-gray-200 transition duration-100;
+  @apply bg-yellow-500 text-white rounded-full w-24 h-12 flex items-center justify-center gap-2 dark:bg-black;
 }
 
 /* Notes */
