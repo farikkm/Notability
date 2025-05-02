@@ -26,7 +26,7 @@
 
 /* User Card */
 .user-card {
-  @apply bg-white shadow-md flex items-center justify-between p-4 rounded-2xl cursor-pointer hover:shadow-lg transition-shadow duration-300;
+  @apply bg-white shadow-md flex items-center justify-between p-4 rounded-2xl cursor-pointer hover:shadow-lg transition-shadow duration-300 dark:bg-black dark:*:text-white;
 }
 
 .user-card-wrapper {
@@ -34,7 +34,7 @@
 }
 
 .user-card-profile, .icon-wrapper {
-  @apply bg-gray-100 rounded-full w-12 h-12 flex items-center justify-center;
+  @apply bg-gray-100 rounded-full w-12 h-12 flex items-center justify-center dark:text-black;
 }
 
 .icon-text-wrapper {

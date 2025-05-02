@@ -24,7 +24,7 @@ const Notes = () => {
       </div>
 
       <div className="w-full flex justify-between my-6">
-        <h1 className="text-center font-bold text-2xl">Notes</h1>
+        <h1 className="text-center font-bold text-2xl dark:text-white">Notes</h1>
         <AddNoteModal />
       </div>
 
