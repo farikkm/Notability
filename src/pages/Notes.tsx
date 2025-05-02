@@ -2,8 +2,8 @@ import { AddNoteModal } from "widgets/notes";
 import { NotesList } from "entities/Notes/ui";
 import { useLoadNotes } from "features/Notes/hooks";
 import { useNotesStore } from "entities/Notes/model";
-import { LoadingSpinner } from "shared/ui/components";
-import { LoginButton, LogoutButton } from "features/Auth/ui";
+import { LoadingSpinner, Logo, UserProfileIcon } from "shared/ui/components";
+import { LoginButton } from "features/Auth/ui";
 import { useClearNotesOnUnmount } from "features/Notes/hooks/useClearNotesOnUnmount";
 
 const Notes = () => {
@@ -18,9 +18,10 @@ const Notes = () => {
 
   return (
     <div className={`p-5 container mx-auto`}>
-      <div className="w-full flex justify-between">
+      <div className="w-full flex justify-between items-center">
         <LoginButton />
-        <LogoutButton />
+        <Logo />
+        <UserProfileIcon />
       </div>
 
       <div className="w-full flex justify-between my-6">
