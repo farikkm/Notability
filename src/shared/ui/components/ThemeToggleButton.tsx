@@ -28,6 +28,7 @@ export const ThemeToggleButton = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          cursor: "pointer"
         }}
       >
         {theme === "light" ? <Sun color="black" size={24} /> : <Moon color="white" size={24} />}
