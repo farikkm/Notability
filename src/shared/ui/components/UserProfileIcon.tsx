@@ -3,7 +3,6 @@ import { useUserStore } from "entities/User/model";
 import { BookUser, LogOut, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-
 export const UserProfileIcon = () => {
   const navigate = useNavigate();
   const logout = useUserStore((state) => state.logout);
@@ -33,7 +32,6 @@ export const UserProfileIcon = () => {
       onClick: handleLogout
     },
   ];
-
 
   return (
     <Dropdown placement="bottomRight" menu={{ items }} trigger={["click"]}>
