@@ -4,3 +4,4 @@ export * from "./ThemeToggleButton";
 export * from "./AuthorizedUserCard";
 export * from "./Logo"
 export * from "./UserProfileIcon"
+export * from "./LanguageSwitcher"
