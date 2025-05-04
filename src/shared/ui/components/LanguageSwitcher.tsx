@@ -1,27 +1,25 @@
 import { Dropdown, MenuProps } from "antd";
-import { Languages } from "lucide-react";
+import { Check, Languages } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
 
-  const items: MenuProps["items"] = [
-    {
-      label: "English",
-      key: "1",
-      onClick: () => i18n.changeLanguage("en"),
-    },
-    {
-      label: "Русский",
-      key: "2",
-      onClick: () => i18n.changeLanguage("ru"),
-    },
-    {
-      label: "O'zbekcha",
-      key: "3",
-      onClick: () => i18n.changeLanguage("uz"),
-    },
+  const languages = [
+    { code: "en", label: "English" },
+    { code: "ru", label: "Русский" },
+    { code: "uz", label: "O'zbekcha" },
   ];
+
+  const items: MenuProps["items"] = languages.map(({ code, label }) => ({
+    key: code,
+    label: (
+      <span className="flex items-center gap-2">
+        {label} {i18n.language === code && <Check size={16} />}
+      </span>
+    ),
+    onClick: () => i18n.changeLanguage(code),
+  }));
 
   return (
     <Dropdown placement="bottomCenter" menu={{ items }} trigger={["click"]}>
