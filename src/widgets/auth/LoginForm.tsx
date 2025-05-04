@@ -2,6 +2,7 @@ import { useAuth } from "features/Auth/hooks";
 import { useUserStore } from "entities/User/model";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Input, Button, Typography } from "antd";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -26,6 +27,7 @@ const LoginForm = () => {
   // Hooks
   const { login } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // Handlers
   const handleSubmit = async () => {
@@ -54,7 +56,7 @@ const LoginForm = () => {
       autoComplete="off"
     >
       <Form.Item
-        label={<span className="font-bold">Email</span>}
+        label={<span className="font-bold">{t("login.email-label")}</span>}
         name="email"
         style={{ marginBottom: 10 }}
         rules={[
@@ -73,7 +75,7 @@ const LoginForm = () => {
       {emailErrorMessage && <Text type="danger">{emailErrorMessage}</Text>}
 
       <Form.Item
-        label={<span className="font-bold">Password</span>}
+        label={<span className="font-bold">{t("login.password-label")}</span>}
         name="password"
         style={{ marginBottom: 10 }}
         rules={[{ required: true, message: "Please enter your password" }]}
@@ -93,14 +95,14 @@ const LoginForm = () => {
 
       <Form.Item>
         <Button type="primary" htmlType="submit" block>
-          Login
+          {t("login.button")}
         </Button>
       </Form.Item>
 
-      <Form.Item className="text-center">
-        <span>Don't have an account? </span>
-        <Link to="/register">Register</Link>
-      </Form.Item>
+      <div className="auth-link">
+        <span>{t("login.noAccount")}</span>
+        <Link to="/register">{t("login.registerLink")}</Link>
+      </div>
     </Form>
   );
 };

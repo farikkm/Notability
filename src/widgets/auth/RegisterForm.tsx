@@ -3,6 +3,7 @@ import { useAuth } from "features/Auth/hooks";
 import { useUserStore } from "entities/User/model";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Input, Button, Typography } from "antd";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -29,6 +30,7 @@ const RegisterForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const { register } = useAuth();
+  const { t } = useTranslation();
 
   // Handlers
   const handleSubmit = async () => {
@@ -69,7 +71,7 @@ const RegisterForm = () => {
       autoComplete="off"
     >
       <Form.Item
-        label={<span className="font-bold">Email</span>}
+        label={<span className="font-bold">{t("register.email-label")}</span>}
         name="email"
         rules={[
           { required: true, message: "Please enter your email" },
@@ -86,7 +88,9 @@ const RegisterForm = () => {
       {emailErrorMessage && <Text type="danger">{emailErrorMessage}</Text>}
 
       <Form.Item
-        label={<span className="font-bold">Password</span>}
+        label={
+          <span className="font-bold">{t("register.password-label")}</span>
+        }
         name="password"
         rules={[{ required: true, message: "Please enter your password" }]}
         style={{ marginBottom: 10 }}
@@ -102,7 +106,11 @@ const RegisterForm = () => {
       )}
 
       <Form.Item
-        label={<span className="font-bold">Confirm Password</span>}
+        label={
+          <span className="font-bold">
+            {t("register.confirmPassword-label")}
+          </span>
+        }
         name="confirmPassword"
         rules={[{ required: true, message: "Please confirm your password" }]}
         style={{ marginBottom: 10 }}
@@ -118,14 +126,14 @@ const RegisterForm = () => {
 
       <Form.Item>
         <Button type="primary" htmlType="submit" block>
-          Register
+          {t("register.button")}
         </Button>
       </Form.Item>
 
-      <Form.Item className="text-center">
-        <span>Already have an account? </span>
-        <Link to="/login">Login</Link>
-      </Form.Item>
+      <div className="auth-link">
+        <span>{t("register.hasAccount")}</span>
+        <Link to="/login">{t("register.loginLink")}</Link>
+      </div>
     </Form>
   );
 };
