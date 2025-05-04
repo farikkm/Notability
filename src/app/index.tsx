@@ -1,10 +1,14 @@
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { ConfigProvider, theme } from "antd";
 import { useThemeStore } from "shared/model";
 import { createAppRouter } from "app/routing";
 import { RouterProvider } from "react-router-dom";
 import { useUserStore } from "entities/User/model";
-import { LanguageSwitcher, ThemeToggleButton } from "shared/ui/components";
+import {
+  LanguageSwitcher,
+  LoadingSpinner,
+  ThemeToggleButton,
+} from "shared/ui/components";
 
 import "app/config/i18n";
 
@@ -21,22 +25,26 @@ const App = () => {
   }, []);
 
   return (
-    <ConfigProvider
-      theme={{
-        algorithm:
-          themeState === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
-      }}
-    >
-      <div style={{ minHeight: "100vh" }}>
-        {/* Переключатель темы */}
-        <div className="fixed right-4 top-3 flex items-center gap-4">
-          <LanguageSwitcher />
-          <ThemeToggleButton />
-        </div>
+    <Suspense fallback={<LoadingSpinner />}>
+      <ConfigProvider
+        theme={{
+          algorithm:
+            themeState === "dark"
+              ? theme.darkAlgorithm
+              : theme.defaultAlgorithm,
+        }}
+      >
+        <div style={{ minHeight: "100vh" }}>
+          {/* Переключатель темы */}
+          <div className="fixed right-4 top-3 flex items-center gap-4">
+            <LanguageSwitcher />
+            <ThemeToggleButton />
+          </div>
 
-        <RouterProvider router={router} />
-      </div>
-    </ConfigProvider>
+          <RouterProvider router={router} />
+        </div>
+      </ConfigProvider>
+    </Suspense>
   );
 };
 
