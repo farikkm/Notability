@@ -1,4 +1,21 @@
 {
-  "welcome": "Welcome!",
-  "changeLang": "Change language"
+  "login": {
+    "title": "Login",
+    "description": "Login to your account",
+    "email-label": "Email",
+    "password-label": "Password",
+    "button": "Login",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Register"
+  },
+  "register": {
+    "title": "Register",
+    "description": "Create a new account",
+    "email-label": "Email",
+    "password-label": "Password",
+    "confirmPassword-label": "Confirm Password",
+    "button": "Register",
+    "hasAccount": "Already have an account?",
+    "loginLink": "Login"
+  }
 }

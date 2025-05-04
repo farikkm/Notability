@@ -1,4 +1,21 @@
 {
-  "welcome": "Добро пожаловать!",
-  "changeLang": "Сменить язык"
+  "login": {
+    "title": "Вход",
+    "description": "Войдите в свой аккаунт",
+    "email-label": "Эл. почта",
+    "password-label": "Пароль",
+    "button": "Вход",
+    "noAccount": "Нет аккаунта?",
+    "registerLink": "Зарегистрироваться"
+  },
+  "register": {
+    "title": "Зарегистрироваться",
+    "description": "Создать новый аккаунт",
+    "email-label": "Эл. почта",
+    "password-label": "Пароль",
+    "confirmPassword-label": "Подтвердите пароль",
+    "button": "Зарегистрироваться",
+    "hasAccount": "Уже есть аккаунт?",
+    "loginLink": "Войти"
+  }
 }

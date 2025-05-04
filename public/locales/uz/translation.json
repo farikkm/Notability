@@ -1,4 +1,21 @@
 {
-  "welcome": "Xush kelibsiz!",
-  "changeLang": "Tilni o'zgartirish"
+  "login": {
+    "title": "Tizimga kirish",
+    "description": "Hisobingizga kiring",
+    "password-label": "Parol",
+    "button": "Tizimga kirish",
+    "email-label": "Elektron pochta",
+    "noAccount": "Hisobingiz yo'qmi?",
+    "registerLink": "Ro'yxatdan o'tish"
+  },
+  "register": {
+    "title": "Ro'yxatdan o'tish",
+    "description": "Yangi hisob yaratish",
+    "email-label": "Elektron pochta",
+    "password-label": "Parol",
+    "confirmPassword-label": "Parolni tasdiqlash",
+    "button": "Ro'yxatdan o'tish",
+    "hasAccount": "Hisobingiz bormi?",
+    "loginLink": "Tizimga kirish"
+  }
 }
