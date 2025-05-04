@@ -1,54 +1,84 @@
-# React + TypeScript + Vite
+Вот пример `README.md` файла для твоего приложения с заметками, где использована структура FSD и другие детали, которые ты указал:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+````markdown
+# Note-taking App
 
-Currently, two official plugins are available:
+Это приложение для заметок с использованием Node.js, MongoDB и JWT для авторизации. Приложение организовано по структуре FSD (Feature-Sliced Design), что позволяет легко расширять и масштабировать проект. Для дизайна использован компонентный фреймворк Ant Design (antd), который помогает создать приятный и удобный интерфейс.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Структура проекта
 
-## Expanding the ESLint configuration
+Проект использует структуру FSD (Feature-Sliced Design), которая позволяет организовать код вокруг функций, а не только по типам файлов. Это улучшает поддержку и развитие приложения, делает код более читаемым и удобным для работы в команде.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Структура каталогов
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- `src/`
+  - `features/` — содержит функциональные блоки приложения (например, авторизация, создание и редактирование заметок).
+  - `shared/` — общие утилиты, компоненты и модули, используемые в нескольких местах приложения (например, компоненты UI из antd, API).
+  - `app/` — основные компоненты приложения, такие как маршруты и настройка состояния.
+
+## Технологии
+
+- **Node.js** — серверная часть приложения.
+- **Express.js** — фреймворк для создания API.
+- **MongoDB** — база данных для хранения заметок.
+- **JWT** — механизм авторизации через JSON Web Token.
+- **Ant Design (antd)** — библиотека компонентов для удобного и стильного интерфейса.
+- **Mongoose** — ODM для работы с MongoDB.
+- **dotenv** — для работы с переменными окружения.
+
+## Установка
+
+1. Клонируйте репозиторий:
+
+   ```bash
+   git clone https://github.com/yourusername/note-taking-app.git
+````
+
+2. Установите зависимости:
+
+   Для серверной части:
+
+   ```bash
+   cd server
+   npm install
+   ```
+
+3. Создайте файл `.env` в папке с сервером и добавьте ваши настройки:
+
+   ```env
+   JWT_SECRET=your_secret_key
+   MONGO_URI=your_mongo_database_uri
+   PORT=5000
+   ```
+
+4. Запустите сервер:
+
+   ```bash
+   npm start
+   ```
+
+## Авторизация
+
+Приложение поддерживает авторизацию с помощью JWT токенов. После успешного логина пользователю выдается JWT токен, который используется для аутентификации в приложении.
+
+### Эндпоинты для авторизации:
+
+* **POST** `/auth/login` — логин пользователя. Возвращает JWT токен.
+* **POST** `/auth/register` — регистрация нового пользователя.
+
+## Использование
+
+После запуска серверной части приложения вы можете взаимодействовать с фронтендом, который использует Ant Design для отображения интерфейса:
+
+* Добавление, редактирование и удаление заметок.
+* Авторизация через JWT.
+* Просмотр всех заметок.
+
+## Лицензия
+
+Этот проект распространяется под лицензией MIT.
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+Такой `README.md` файл описывает структуру проекта, технологии и предоставляет необходимую информацию для быстрого старта.
 ```
