@@ -17,5 +17,26 @@
     "button": "Ro'yxatdan o'tish",
     "hasAccount": "Hisobingiz bormi?",
     "loginLink": "Tizimga kirish"
+  },
+  "notes": {
+    "title": "Eslatmalar",
+    "inputs": {
+      "title": "Sarlavha",
+      "content": "Mazmuni"
+    },
+    "add-note": {
+      "title": "Eslatma qo‘shish",
+      "button": "Eslatma qo‘shish"
+    },
+    "update-note": {
+      "title": "Eslatmani yangilash",
+      "button": "Eslatmani yangilash"
+    },
+    "delete-note": {
+      "title": "Eslatmani o‘chirish",
+      "warning": "Bu eslatmani o‘chirishga ishonchingiz komilmi?",
+      "yes": "Ha",
+      "no": "Yo‘q"
+    }
   }
 }

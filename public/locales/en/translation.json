@@ -17,5 +17,26 @@
     "button": "Register",
     "hasAccount": "Already have an account?",
     "loginLink": "Login"
+  },
+  "notes": {
+    "title": "Notes",
+    "inputs": {
+      "title": "Title",
+      "content": "Content"
+    },
+    "add-note": {
+      "title": "Add Note",
+      "button": "Add Note"
+    },
+    "update-note": {
+      "title": "Update Note",
+      "button": "Update Note"
+    },
+    "delete-note": {
+      "title": "Delete the note",
+      "warning": "Are you sure to delete this note?",
+      "yes": "Yes",
+      "no": "No"
+    }
   }
 }
