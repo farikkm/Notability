@@ -86,6 +86,11 @@ const LoginForm = () => {
           autoComplete="off"
         />
       </Form.Item>
+        <div className="flex justify-end pb-2">
+          <Link to="/forgot-password">
+            <Text type="secondary">Забыли пароль?</Text>
+          </Link>
+        </div>
 
       {passwordErrorMessage && (
         <Text type="danger">{passwordErrorMessage}</Text>
