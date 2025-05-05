@@ -8,12 +8,12 @@
 
 /* =================== General =================== */
 .wrapper {
-  @apply h-screen w-screen bg-gray-50 dark:bg-gray-800 text-black transition-colors duration-300 py-8 overflow-hidden;
+  @apply h-screen w-screen bg-gray-50 dark:bg-gray-800 text-black transition-colors duration-300;
 }
 
 /* =================== Logo =================== */
 .logo {
-  @apply flex items-center gap-2 text-yellow-500 dark:*:text-white;
+  @apply flex items-center gap-2 text-yellow-500 dark:*:text-white max-md:hidden;
 }
 
 /* =================== Auth =================== */
@@ -52,7 +52,7 @@
 }
 
 .icon-text-wrapper {
-  @apply bg-yellow-500 text-white rounded-full w-24 h-12 flex items-center justify-center gap-2 dark:bg-black;
+  @apply bg-yellow-500 text-white rounded-full w-18 h-12 flex items-center justify-center gap-2 dark:bg-black;
 }
 
 /* Notes */
