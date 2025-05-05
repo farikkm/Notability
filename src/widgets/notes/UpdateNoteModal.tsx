@@ -61,12 +61,12 @@ const UpdateNoteModal = ({
         centered
       >
         <div className="p-6">
-          <h2 className="text-2xl text-center">{t("notes.add-note.title")}</h2>
+          <h2 className="text-2xl text-center">{t("notes.update-note.title")}</h2>
           <NoteForm
             onSubmit={handleSubmit}
             title={title}
             content={content}
-            buttonValue={t("notes.add-note.button")}
+            buttonValue={t("notes.update-note.button")}
             isModalOpen={isModalOpen}
           />
         </div>
