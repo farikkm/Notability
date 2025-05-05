@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import TextArea from "antd/es/input/TextArea";
 import { autoFocusInput } from "shared/lib/form";
 import { Form, Button, Input, InputRef, Spin } from "antd";
+import { useTranslation } from "react-i18next";
 
 export interface NoteFormValues {
   title: string;
@@ -27,10 +28,12 @@ export const NoteForm: React.FC<NoteFormProps> = ({
   const inputRef = useRef<InputRef | null>(null);
   const [serverResponed, setServerResponed] = useState(true);
 
-  const currentTitle = Form.useWatch('title', form);
-  const currentContent = Form.useWatch('content', form);
+  const currentTitle = Form.useWatch("title", form);
+  const currentContent = Form.useWatch("content", form);
 
   const fieldsChanged = title !== currentTitle || content !== currentContent;
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     form.setFieldsValue({ title, content });
@@ -45,13 +48,9 @@ export const NoteForm: React.FC<NoteFormProps> = ({
   };
 
   return (
-    <Form
-      form={form}
-      layout="vertical"
-      onFinish={handleFinish}
-    >
+    <Form form={form} layout="vertical" onFinish={handleFinish}>
       <Form.Item
-        label="Title"
+        label={t("notes.inputs.title")}
         name="title"
         rules={[{ required: true, message: "Please enter a title" }]}
       >
@@ -59,7 +58,7 @@ export const NoteForm: React.FC<NoteFormProps> = ({
       </Form.Item>
 
       <Form.Item
-        label="Content"
+        label={t("notes.inputs.content")}
         name="content"
         rules={[{ required: true, message: "Please enter some content" }]}
       >
@@ -67,7 +66,11 @@ export const NoteForm: React.FC<NoteFormProps> = ({
       </Form.Item>
 
       <Form.Item>
-        <Button htmlType="submit" disabled={!serverResponed || !fieldsChanged} block>
+        <Button
+          htmlType="submit"
+          disabled={!serverResponed || !fieldsChanged}
+          block
+        >
           {!serverResponed ? <Spin /> : buttonValue}
         </Button>
       </Form.Item>

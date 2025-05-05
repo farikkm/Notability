@@ -4,6 +4,7 @@ import { NoteForm } from "entities/Notes/ui";
 import { updateNoteRequest } from "features/Notes/hooks";
 import { UpdateNoteButton } from "features/Notes/ui/UpdateNoteButton";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const UpdateNoteModal = ({
   title,
@@ -16,6 +17,8 @@ const UpdateNoteModal = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const updateNote = useNotesStore((state) => state.updateNote);
+
+  const { t } = useTranslation();
 
   // UI
   const showModal = () => {
@@ -58,12 +61,12 @@ const UpdateNoteModal = ({
         centered
       >
         <div className="p-6">
-          <h2 className="text-2xl text-center">Update Note</h2>
+          <h2 className="text-2xl text-center">{t("notes.add-note.title")}</h2>
           <NoteForm
             onSubmit={handleSubmit}
             title={title}
             content={content}
-            buttonValue="Update Note"
+            buttonValue={t("notes.add-note.button")}
             isModalOpen={isModalOpen}
           />
         </div>

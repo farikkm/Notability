@@ -5,11 +5,14 @@ import { AddNoteButton } from "features/Notes/ui";
 import { createNotePayload } from "features/Notes/lib";
 import { addNoteRequest } from "features/Notes/hooks";
 import { useNotesStore } from "entities/Notes/model";
+import { useTranslation } from "react-i18next";
 
 export const AddNoteModal = () => {
   // States
   const [isModalOpen, setIsModalOpen] = useState(false);
   const addNote = useNotesStore((state) => state.addNote)
+
+  const { t } = useTranslation();
 
   // UI
   const showModal = () => setIsModalOpen(true);
@@ -48,8 +51,8 @@ export const AddNoteModal = () => {
         centered
       >
         <div className="p-6">
-          <h2 className="text-2xl text-center">Add Note</h2>
-          <NoteForm onSubmit={handleSubmit} title="" content="" buttonValue="Add Note" />
+          <h2 className="text-2xl text-center">{t("notes.add-note.title")}</h2>
+          <NoteForm onSubmit={handleSubmit} title="" content="" buttonValue={t("notes.add-note.button")} />
         </div>
       </Modal>
     </>
