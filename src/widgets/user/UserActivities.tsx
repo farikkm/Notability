@@ -38,5 +38,5 @@ export const UserActivities = () => {
     },
   ];
 
-  return <UserProfileIcon items={items} />;
+  return email && <UserProfileIcon items={items} />;
 }
