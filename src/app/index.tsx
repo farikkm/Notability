@@ -1,18 +1,14 @@
 import { Suspense, useEffect } from "react";
 import { ConfigProvider, theme } from "antd";
 import { useThemeStore } from "shared/model";
-import { createAppRouter } from "app/routing";
+import { appRouter } from "app/routing";
 import { RouterProvider } from "react-router-dom";
 import { useUserStore } from "entities/User/model";
-import {
-  LanguageSwitcher,
-  LoadingSpinner,
-  ThemeToggleButton,
-} from "shared/ui/components";
+import { LoadingSpinner } from "shared/ui/components";
 
 import "app/config/i18n";
 
-const router = createAppRouter();
+const router = appRouter();
 
 const App = () => {
   const initFromLocalStorage = useUserStore(
@@ -35,12 +31,6 @@ const App = () => {
         }}
       >
         <div style={{ minHeight: "100vh" }}>
-          {/* Переключатель темы */}
-          <div className="fixed right-4 top-3 flex items-center gap-4">
-            <LanguageSwitcher />
-            <ThemeToggleButton />
-          </div>
-
           <RouterProvider router={router} />
         </div>
       </ConfigProvider>
