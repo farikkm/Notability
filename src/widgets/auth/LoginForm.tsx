@@ -3,13 +3,12 @@ import { useUserStore } from "entities/User/model";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Input, Button, Typography } from "antd";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 const { Text } = Typography;
 
 const LoginForm = () => {
   // States
-  const email = useUserStore((state) => state.email);
-  const password = useUserStore((state) => state.password);
   const errorMessage = useUserStore((state) => state.errorMessage);
   const emailErrorMessage = useUserStore((state) => state.emailErrorMessage);
   const passwordErrorMessage = useUserStore(
@@ -17,12 +16,14 @@ const LoginForm = () => {
   );
 
   // Actions
-  const setEmail = useUserStore((state) => state.setEmail);
-  const setPassword = useUserStore((state) => state.setPassword);
   const resetFields = useUserStore((state) => state.resetFields);
   const validateEmail = useUserStore((state) => state.validateEmail);
   const validatePassword = useUserStore((state) => state.validatePassword);
   const clearErrorMessage = useUserStore((state) => state.clearErrorMessage);
+
+  // React
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // Hooks
   const { login } = useAuth();
@@ -37,8 +38,6 @@ const LoginForm = () => {
     const isPasswordValid = validatePassword(password);
 
     if (!isEmailValid || !isPasswordValid) return;
-
-    console.log("Submitting form with data:", { email, password });
 
     const success = await login(email, password);
     if (success) {

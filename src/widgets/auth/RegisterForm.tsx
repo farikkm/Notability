@@ -9,8 +9,6 @@ const { Text } = Typography;
 
 const RegisterForm = () => {
   // States
-  const email = useUserStore((state) => state.email);
-  const password = useUserStore((state) => state.password);
   const errorMessage = useUserStore((state) => state.errorMessage);
   const emailErrorMessage = useUserStore((state) => state.emailErrorMessage);
   const passwordErrorMessage = useUserStore(
@@ -18,13 +16,15 @@ const RegisterForm = () => {
   );
 
   // Actions
-  const setEmail = useUserStore((state) => state.setEmail);
-  const setPassword = useUserStore((state) => state.setPassword);
   const resetFields = useUserStore((state) => state.resetFields);
   const validateEmail = useUserStore((state) => state.validateEmail);
   const validatePassword = useUserStore((state) => state.validatePassword);
   const setErrorMessage = useUserStore((state) => state.setErrorMessage);
   const clearErrorMessage = useUserStore((state) => state.clearErrorMessage);
+
+  // React
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // Hooks
   const [confirmPassword, setConfirmPassword] = useState("");
