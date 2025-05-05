@@ -25,7 +25,7 @@ export const AuthLayout = ({
           <div className="auth-cart">
             <h1 className="auth-title">{title}</h1>
             <p className="auth-description">{description}</p>
-            <div>{children}</div>
+            <>{children}</>
           </div>
         </motion.div>
       </div>
