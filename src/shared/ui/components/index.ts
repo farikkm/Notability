@@ -5,3 +5,4 @@ export * from "./UserCard";
 export * from "./Logo"
 export * from "./UserProfileIcon"
 export * from "./LanguageSwitcher"
+export * from "./MyErrorMessage"

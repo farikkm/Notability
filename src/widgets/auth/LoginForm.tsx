@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Input, Button, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import { MyErrorMessage } from "shared/ui/components";
 
 const { Text } = Typography;
 
@@ -90,7 +91,7 @@ const LoginForm = () => {
         <Text type="danger">{passwordErrorMessage}</Text>
       )}
 
-      {errorMessage && <Text type="danger">{errorMessage}</Text>}
+      {errorMessage && <MyErrorMessage message={errorMessage} />}
 
       <Form.Item>
         <Button type="primary" htmlType="submit" block>
