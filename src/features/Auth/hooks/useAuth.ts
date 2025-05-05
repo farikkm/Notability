@@ -63,7 +63,7 @@ export const useAuth = () => {
             Authorization: `Bearer ${token}`,
           },
         }
-      );  
+      );
       
       setUserId(result.userId);
       return true;
