@@ -8,7 +8,7 @@ const Notes = lazy(() => import("pages/Notes"));
 const Login = lazy(() => import("pages/Login"));
 const Register = lazy(() => import("pages/Register"));
 
-export function createAppRouter() {
+export const appRouter = () => {
   return createBrowserRouter([
     {
       path: "/",
