@@ -6,6 +6,10 @@ export const getUserInfo = async (): Promise<UserInfo> => {
   const token = getToken();
   const url = import.meta.env.VITE_API_BASE_URL;
 
+  if (!token) {
+    throw new Error("Token is missing. Unable to fetch user info.");
+  }
+
   try {
     const result = await safeFetch(`${url}/api/user`, {
       method: "GET",

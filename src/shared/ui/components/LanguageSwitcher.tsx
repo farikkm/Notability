@@ -22,7 +22,7 @@ export const LanguageSwitcher = () => {
   }));
 
   return (
-    <Dropdown placement="bottomCenter" menu={{ items }} trigger={["click"]}>
+    <Dropdown placement="bottom" menu={{ items }} trigger={["click"]}>
       <a onClick={(e) => e.preventDefault()}>
         <div className="flex justify-center items-center w-10 h-10 rounded-xl cursor-pointer bg-yellow-500 text-white dark:bg-black">
           <Languages />
