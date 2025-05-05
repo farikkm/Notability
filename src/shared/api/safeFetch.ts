@@ -1,11 +1,17 @@
 export const safeFetch = async (url: string, options?: RequestInit) => {
   const response = await fetch(url, options);
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-  }
 
   const contentType = response.headers.get("Content-Type");
+
+  if (!response.ok) {
+    if (contentType && contentType.includes("application/json")) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Unknown error");
+    } else {
+      const errorText = await response.text();
+      throw new Error(errorText);
+    }
+  }
 
   if (contentType && contentType.includes("application/json")) {
     return await response.json();
@@ -14,4 +20,4 @@ export const safeFetch = async (url: string, options?: RequestInit) => {
   } else {
     throw new Error(`Unsupported content type: ${contentType}`);
   }
-}
+};
