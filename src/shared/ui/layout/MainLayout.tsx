@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { useThemeStore } from "shared/model"
+import { useThemeStore } from "shared/model";
+import { UserActivities } from "widgets/user";
+import { LanguageSwitcher, ThemeToggleButton } from "../components";
 
 export const MainLayout = () => {
   const theme = useThemeStore((state) => state.theme);
@@ -10,8 +12,13 @@ export const MainLayout = () => {
   }, [theme]);
 
   return (
-    <div className="h-screen w-screen bg-gray-50 dark:bg-gray-800 text-black transition-colors duration-300">
+    <div className="wrapper">
+      <div className="fixed right-4 top-3 flex items-center gap-4">
+        <LanguageSwitcher />
+        <ThemeToggleButton />
+        <UserActivities />
+      </div>
       <Outlet />
     </div>
-  )
-}
+  );
+};
