@@ -10,107 +10,72 @@ type AddNoteResponseType = {
 type UpdatedNoteResponseType = {
   message: string;
   note: NoteType;
-}
+};
 
 type DeletedNoteResponseType = {
   message: string;
-}
+};
 
-export const getNotesRequest = async () => {
-  const token = getToken();
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+const getHeaders = (): HeadersInit => ({
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${getToken()}`,
+});
 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
+export const getNotesRequest = async (): Promise<NoteType[]> => {
   try {
-    const data = await safeFetch(`${apiBaseUrl}/api/notes`, {
+    return await safeFetch(`${apiBaseUrl}/api/notes`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      headers: getHeaders(),
     });
-
-    return data;
   } catch (error) {
-    if (error instanceof Error) {
-      console.error("Error occured while getting all notes");
-    }
+    console.error("Error occurred while getting all notes:", error);
+    return [];
   }
-
-  return [];
 };
 
 export const addNoteRequest = async (
   note: Omit<NoteType, "_id">
 ): Promise<Pick<AddNoteResponseType, "noteId">> => {
-  const token = getToken();
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-
   try {
-    const data = await safeFetch(`${apiBaseUrl}/api/notes/add`, {
+    return await safeFetch(`${apiBaseUrl}/api/notes/add`, {
       method: "POST",
       body: JSON.stringify(note),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      headers: getHeaders(),
     });
-
-    return data;
   } catch (error) {
-    if (error instanceof Error) {
-      console.error("Error occured while adding new note");
-    }
+    console.error("Error occurred while adding a new note:", error);
+    return { noteId: `new-note-${Date.now()}` };
   }
-
-  return { noteId: `new-note ${new Date()}` };
 };
 
 export const updateNoteRequest = async (
-  {_id}: Pick<NoteType, "_id">,
+  { _id }: Pick<NoteType, "_id">,
   note: Partial<NoteType>
 ): Promise<UpdatedNoteResponseType> => {
-  const token = getToken();
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-  
   try {
-    const data = await safeFetch(`${apiBaseUrl}/api/notes/update/${_id}`, {
+    return await safeFetch(`${apiBaseUrl}/api/notes/update/${_id}`, {
       method: "PATCH",
       body: JSON.stringify(note),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      headers: getHeaders(),
     });
-
-    return data;
   } catch (error) {
-    if (error instanceof Error) {
-      console.error("Error occured while updating the note");
-    }
+    console.error("Error occurred while updating the note:", error);
     throw error;
   }
 };
 
 export const deleteNoteRequest = async (
-  {_id}: Pick<NoteType, "_id">
+  { _id }: Pick<NoteType, "_id">
 ): Promise<DeletedNoteResponseType> => {
-  const token = getToken();
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-  
   try {
-    const data = await safeFetch(`${apiBaseUrl}/api/notes/delete/${_id}`, {
+    return await safeFetch(`${apiBaseUrl}/api/notes/delete/${_id}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      headers: getHeaders(),
     });
-
-    return data;
   } catch (error) {
-    if (error instanceof Error) {
-      console.error("Error occured while deleting the note");
-    }
+    console.error("Error occurred while deleting the note:", error);
     throw error;
   }
 };
