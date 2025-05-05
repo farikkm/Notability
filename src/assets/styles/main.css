@@ -6,6 +6,11 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* =================== General =================== */
+.wrapper {
+  @apply h-screen w-screen bg-gray-50 dark:bg-gray-800 text-black transition-colors duration-300 py-8 overflow-hidden;
+}
+
 /* =================== Logo =================== */
 .logo {
   @apply flex items-center gap-2 text-yellow-500 dark:*:text-white;
