@@ -2,6 +2,10 @@ import { safeFetch } from "shared/api";
 import { NoteType } from "shared/types";
 import { getToken } from "shared/lib/token";
 
+type GetNotesRequestType = {
+  notes: NoteType[];
+}
+
 type AddNoteResponseType = {
   message: string;
   noteId: string;
@@ -23,15 +27,17 @@ const getHeaders = (): HeadersInit => ({
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
-export const getNotesRequest = async (): Promise<NoteType[]> => {
+export const getNotesRequest = async (): Promise<GetNotesRequestType> => {
   try {
-    return await safeFetch(`${apiBaseUrl}/api/notes`, {
+    const data = await safeFetch(`${apiBaseUrl}/api/notes`, {
       method: "GET",
       headers: getHeaders(),
     });
+
+    return data;
   } catch (error) {
     console.error("Error occurred while getting all notes:", error);
-    return [];
+    return { notes: [] };
   }
 };
 
