@@ -7,6 +7,7 @@ import { MainLayout } from "shared/ui/layout";
 const Notes = lazy(() => import("pages/Notes"));
 const Login = lazy(() => import("pages/Login"));
 const Register = lazy(() => import("pages/Register"));
+const ForgotPassword = lazy(() => import("pages/ForgotPassword"));
 
 export const appRouter = () => {
   return createBrowserRouter([
@@ -25,6 +26,10 @@ export const appRouter = () => {
         {
           path: "register",
           element: WithSuspense(<Register />),
+        },
+        {
+          path: "forgot-password",
+          element: WithSuspense(<ForgotPassword />)
         },
         {
           path: "notes",
