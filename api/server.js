@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
+// import { sendResetEmail } from "./utils/sendEmail.js";
+
 const app = express();
 
 dotenv.config();
@@ -92,6 +94,23 @@ app.post("/api/login", async (req, res) => {
   if (!token) return res.status(500).json({ error: "Token generation failed" });
   res.status(200).json({ token });
 });
+
+// // Forgot Password
+// app.post("/api/forgot-password", async (req, res) => {
+//   const { email } = req.body;
+
+//   const user = User.findOne({ email });
+//   if (!user) return res.status(404).json({ error: "User not found" });
+
+//   const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: "15m" });
+
+//   // Сохраняем токен пользователю (или в отдельную таблицу)
+//   user.resetToken = token;
+
+//   await sendResetEmail(email, token);
+
+//   res.json({ message: "Reset link sent" });
+// });
 
 // Profile
 app.get("/api/user", verifyToken, async (req, res) => {
