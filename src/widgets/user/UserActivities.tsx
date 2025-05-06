@@ -1,6 +1,6 @@
 import { MenuProps } from "antd";
 import { useNavigate } from "react-router-dom";
-import { LogOut, Settings } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { useUserStore } from "entities/User/model";
 import { UserProfileIcon } from "shared/ui/components";
 
@@ -25,13 +25,8 @@ export const UserActivities = () => {
       disabled: true,
     },
     {
-      label: "Settings",
-      key: "2",
-      icon: <Settings />,
-    },
-    {
       label: "Logout",
-      key: "3",
+      key: "2",
       icon: <LogOut />,
       danger: true,
       onClick: handleLogout
