@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "features/Auth/hooks";
 import { useUserStore } from "entities/User/model";
 import { Link, useNavigate } from "react-router-dom";
-import { Form, Input, Button, Typography } from "antd";
+import { Form, Input, Button, Typography, Spin } from "antd";
 import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
@@ -25,6 +25,7 @@ const RegisterForm = () => {
   // React
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [serverResponed, setServerResponed] = useState(true);
 
   // Hooks
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -34,6 +35,7 @@ const RegisterForm = () => {
 
   // Handlers
   const handleSubmit = async () => {
+    setServerResponed(false);
     clearErrorMessage();
     console.log("Submitting form with data:", {
       email,
@@ -52,6 +54,7 @@ const RegisterForm = () => {
     }
 
     const isRegistered = await register(email, password);
+    setServerResponed(true);
     if (isRegistered) {
       navigate("/login");
       resetFields();
@@ -125,8 +128,8 @@ const RegisterForm = () => {
       {errorMessage && <Text type="danger">{errorMessage}</Text>}
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" block>
-          {t("register.button")}
+        <Button type="primary" htmlType="submit" block disabled={!serverResponed}>
+        {!serverResponed ? <Spin /> : t("register.button")}
         </Button>
       </Form.Item>
 

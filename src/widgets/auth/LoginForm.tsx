@@ -1,7 +1,7 @@
 import { useAuth } from "features/Auth/hooks";
 import { useUserStore } from "entities/User/model";
 import { Link, useNavigate } from "react-router-dom";
-import { Form, Input, Button, Typography } from "antd";
+import { Form, Input, Button, Typography, Spin } from "antd";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { MyErrorMessage } from "shared/ui/components";
@@ -25,6 +25,7 @@ const LoginForm = () => {
   // React
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [serverResponed, setServerResponed] = useState(true);
 
   // Hooks
   const { login } = useAuth();
@@ -33,6 +34,7 @@ const LoginForm = () => {
 
   // Handlers
   const handleSubmit = async () => {
+    setServerResponed(false);
     clearErrorMessage();
 
     const isEmailValid = validateEmail(email);
@@ -41,6 +43,7 @@ const LoginForm = () => {
     if (!isEmailValid || !isPasswordValid) return;
 
     const success = await login(email, password);
+    setServerResponed(true);
     if (success) {
       navigate("/notes");
       resetFields();
@@ -86,11 +89,11 @@ const LoginForm = () => {
           autoComplete="off"
         />
       </Form.Item>
-        <div className="flex justify-end pb-2">
-          <Link to="/forgot-password">
-            <Text type="secondary">Забыли пароль?</Text>
-          </Link>
-        </div>
+      <div className="flex justify-end pb-2">
+        <Link to="/forgot-password">
+          <Text type="secondary">Забыли пароль?</Text>
+        </Link>
+      </div>
 
       {passwordErrorMessage && (
         <Text type="danger">{passwordErrorMessage}</Text>
@@ -99,8 +102,8 @@ const LoginForm = () => {
       {errorMessage && <MyErrorMessage message={errorMessage} />}
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" block>
-          {t("login.button")}
+        <Button type="primary" htmlType="submit" block disabled={!serverResponed}>
+          {!serverResponed ? <Spin /> : t("login.button")}
         </Button>
       </Form.Item>
 
