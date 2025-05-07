@@ -21,6 +21,7 @@
   "notes": {
     "title": "Eslatmalar",
     "time-last": "o'tdi",
+    "no-notes": "Eslatma yo‘q. Iltimos, yangi eslatma qo‘shing.",
     "inputs": {
       "title": "Sarlavha",
       "content": "Mazmuni"

@@ -21,6 +21,7 @@
   "notes": {
     "title": "Notes",
     "time-last": "ago",
+    "no-notes": "No notes available. Please add a note.",
     "inputs": {
       "title": "Title",
       "content": "Content"
