@@ -20,7 +20,7 @@ export const NotesList = ({ notesByDate, error }: NotesListProps) => {
       )}
       {Object.keys(notesByDate).length === 0 && (
         <div className="no-notes-message text-center mt-4 dark:text-white">
-          No notes available. Please add a note.
+          {t("notes.no-notes")}
         </div>
       )}
       {Object.keys(notesByDate).length > 0 && (
