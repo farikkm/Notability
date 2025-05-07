@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "node server.js",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
@@ -22,7 +23,7 @@
     "i18next-http-backend": "^3.0.2",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.503.0",
-    "mongoose": "^8.13.2",
+    "mongoose": "^8.14.1",
     "motion": "^12.7.4",
     "nodemailer": "^7.0.2",
     "react": "^19.0.0",
