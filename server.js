@@ -7,10 +7,15 @@ import bcrypt from "bcrypt";
 
 // import { sendResetEmail } from "./utils/sendEmail.js";
 
+const allowedOrigins = ["https://notability.vercel.app"];
+
 const app = express();
 
 dotenv.config();
-app.use(cors());
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
