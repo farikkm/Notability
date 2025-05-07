@@ -13,9 +13,9 @@ const Notes = () => {
   const notes = useNotesStore((state) => state.notes);
   const error = useNotesStore((state) => state.error);
   const loading = useNotesStore((state) => state.loading);
-  
+
   const { t, i18n } = useTranslation();
-  
+
   // Hooks
   useLoadNotes();
   useClearNotesOnUnmount([]);
@@ -35,28 +35,31 @@ const Notes = () => {
   }, {} as Record<string, typeof notes>);
 
   return (
-    <div className="p-5 container mx-auto">
-      <div className="w-fit mx-auto">
-        <Logo />
-      </div>
-
-      <div className="mt-12">
-        <div className="w-full flex justify-between my-6">
-          <h1 className="text-center font-bold text-2xl dark:text-white">
-            {t("notes.title")}
-          </h1>
-          <AddNoteModal />
+    <>
+      <div className="fixed top-0 left-0 w-full h-16 bg-gray-50 dark:bg-gray-700 shadow-md z-10" />
+      <div className="p-5 container mx-auto">
+        <div className="w-fit mx-auto">
+          <Logo />
         </div>
 
-        {loading ? (
-          <div className="min-h-screen">
-            <LoadingSpinner />
+        <div className="mt-12">
+          <div className="w-full flex justify-between my-6">
+            <h1 className="text-center font-bold text-2xl dark:text-white">
+              {t("notes.title")}
+            </h1>
+            <AddNoteModal />
           </div>
-        ) : (
-          <NotesList notesByDate={notesByDate || []} error={error} />
-        )}
+
+          {loading ? (
+            <div className="min-h-screen">
+              <LoadingSpinner />
+            </div>
+          ) : (
+            <NotesList notesByDate={notesByDate || []} error={error} />
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

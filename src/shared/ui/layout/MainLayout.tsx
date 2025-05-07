@@ -14,10 +14,10 @@ export const MainLayout = () => {
 
   return (
     <div className="wrapper">
-      <div className="fixed left-4 top-3">
+      <div className="fixed left-4 top-3 z-20">
         <LoginButton />
       </div>
-      <div className="fixed right-4 top-3 flex items-center gap-4">
+      <div className="fixed right-4 top-3 flex items-center gap-4 z-20">
         <LanguageSwitcher />
         <ThemeToggleButton />
         <UserActivities />
