@@ -23,7 +23,7 @@ export const NotesList = ({ notesByDate, error }: NotesListProps) => {
           No notes available. Please add a note.
         </div>
       )}
-      {notesByDate && (
+      {Object.keys(notesByDate).length > 0 && (
         <ul>
           {Object.entries(notesByDate).map(([date, notesOnDate]) => (
             <li key={date}>
