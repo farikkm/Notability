@@ -11,7 +11,7 @@ export const AuthLayout = ({
 }) => {
   return (
     <div className="auth-wrapper">
-      <div className="w-full max-w-xl">
+      <div className="w-full max-w-xl px-4">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
