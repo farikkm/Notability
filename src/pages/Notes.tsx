@@ -33,7 +33,9 @@ const Notes = () => {
         </div>
 
         {loading ? (
-          <LoadingSpinner />
+          <div className="min-h-screen">
+            <LoadingSpinner />
+          </div>
         ) : (
           <NotesList notes={notes || []} error={error} />
         )}

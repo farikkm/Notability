@@ -7,8 +7,12 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* =================== General =================== */
+body {
+  @apply bg-gray-50 dark:bg-gray-800;
+}
+
 .wrapper {
-  @apply h-screen w-screen bg-gray-50 dark:bg-gray-800 text-black transition-colors duration-300;
+  @apply h-full w-full text-black transition-colors duration-300;
 }
 
 /* =================== Logo =================== */

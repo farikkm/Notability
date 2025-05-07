@@ -30,9 +30,7 @@ const App = () => {
               : theme.defaultAlgorithm,
         }}
       >
-        <div style={{ minHeight: "100vh" }}>
-          <RouterProvider router={router} />
-        </div>
+        <RouterProvider router={router} />
       </ConfigProvider>
     </Suspense>
   );
