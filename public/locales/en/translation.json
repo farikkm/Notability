@@ -20,6 +20,7 @@
   },
   "notes": {
     "title": "Notes",
+    "time-last": "ago",
     "inputs": {
       "title": "Title",
       "content": "Content"

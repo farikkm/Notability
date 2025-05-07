@@ -20,6 +20,7 @@
   },
   "notes": {
     "title": "Заметки",
+    "time-last": "назад",
     "inputs": {
       "title": "Заголовок",
       "content": "Содержание"
