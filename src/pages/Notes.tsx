@@ -42,7 +42,7 @@ const Notes = () => {
           <Logo />
         </div>
 
-        <div className="mt-12">
+        <div className="mt-12 max-md:mt-15">
           <div className="w-full flex justify-between my-6">
             <h1 className="text-center font-bold text-2xl dark:text-white">
               {t("notes.title")}
