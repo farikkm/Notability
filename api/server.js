@@ -10,7 +10,10 @@ import bcrypt from "bcrypt";
 const app = express();
 
 dotenv.config();
-app.use(cors());
+app.use(cors({
+  origin: 'https://notability.vercel.app',
+  credentials: true
+}));
 app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
