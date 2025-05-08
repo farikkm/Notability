@@ -37,11 +37,6 @@ const RegisterForm = () => {
   const handleSubmit = async () => {
     setServerResponed(false);
     clearErrorMessage();
-    console.log("Submitting form with data:", {
-      email,
-      password,
-      confirmPassword,
-    });
 
     const isEmailValid = validateEmail(email);
     const isPasswordValid = validatePassword(password);

@@ -36,7 +36,6 @@ const UpdateNoteModal = ({
         { _id: noteId },
         { title: values.title, content: values.content }
       );
-      console.log(data.note);
 
       updateNote(data.note._id, data.note);
       closeModal();

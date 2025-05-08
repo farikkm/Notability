@@ -10,7 +10,6 @@ export const useAuth = () => {
   const login = async (email: string, password: string) => {
     try {
       const url = import.meta.env.VITE_API_BASE_URL;
-      console.log(url);
       
       const result = await safeFetch(`${url}/api/login`, {
         method: "POST",
