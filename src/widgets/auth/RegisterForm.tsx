@@ -123,8 +123,13 @@ const RegisterForm = () => {
       {errorMessage && <Text type="danger">{errorMessage}</Text>}
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" block disabled={!serverResponed}>
-        {!serverResponed ? <Spin /> : t("register.button")}
+        <Button
+          type="primary"
+          htmlType="submit"
+          block
+          disabled={!serverResponed}
+        >
+          {!serverResponed ? <Spin /> : t("register.button")}
         </Button>
       </Form.Item>
 
